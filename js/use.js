@@ -138,7 +138,7 @@ function showCompoudWords4Synset(babel, id, lang, container){
 //Setup the JQuery components
 $(document).ready(function (){
 	
-	var babel = new BabelNet('605862f1-fb95-4658-9cb1-53abf1b4e22a');
+	var babel = new BabelNet('--');
 	
     $('#search').click(function(){
         var word = $('#term').val();        
