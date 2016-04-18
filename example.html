@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="js/babelnet.js"></script>
+    <script src="js/use.js"></script>
+</head>
+<body>
+<h1>BabelNet API TEST</h1>
+
+<hr />
+
+<label for='term'>Term:<label/>
+<input id='term' name='term' value=''/>
+<select id='lang'>
+    <option value='ES'>English</option>
+    <option value='EN'>Spanish</option>
+</select>
+<button id='search'>Definitions</button>
+<button id='toEnglish'>Translate</button>
+<button id='edges'>Show edges</button>
+<button id='compoundWords'>Composed words</button>
+
+<hr/>
+
+<div id='results'></div>
+
+</body>
+</html>
