@@ -135,10 +135,51 @@ function showCompoudWords4Synset(babel, id, lang, container){
     });
 }
 
+/**
+ * 
+ * @param babelfy
+ * @param text
+ * @param lang
+ * @param container
+ */
+function showDisambiguation(babelfy,text, lang, container){
+   container.html('');
+
+    babelfy.disambiguate(text,lang).done(function(response) {
+
+        var matches = [];
+
+        $.each(response, function(key, val) {
+            // retrieving char fragment
+            var charFragment = val['charFragment'];
+            var cfStart = charFragment['start'];
+            var cfEnd = charFragment['end'];           
+
+            var synsetID = val['babelSynsetID'];
+            matches[synsetID] = text.substring(cfStart, cfEnd+1);
+        });
+
+        console.log(matches);
+
+        for (var key in matches){
+            babelfy.getSynset(key,lang).done(function(response){
+                var id = response['senses'][0]['synsetID']['id'];
+
+                var gloss = '-';
+                if(typeof response['glosses'][0] !== "undefined")
+                    gloss = response['glosses'][0]['gloss'];
+
+                var entry = matches[id] + ': ' + gloss;
+                $('<p>',{html:entry}).appendTo(container);
+            });
+        }
+    });
+}
+
 //Setup the JQuery components
 $(document).ready(function (){
 	
-	var babel = new BabelNet('--');
+	var babel = new BabelNet('');
 	
     $('#search').click(function(){
         var word = $('#term').val();        
@@ -171,5 +212,11 @@ $(document).ready(function (){
             $(this).removeAttr("disabled");
          }
    });
+   
+    $('#disambiguate').click(function(){        
 
+        var text = $('#term').val();
+        var lang = $('#lang').val();
+        showDisambiguation(babel,text,lang, $('#results'));
+    });
 });
