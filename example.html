@@ -3,21 +3,21 @@
 <head>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="js/babelnet.js"></script>
-    <script src="js/use.js"></script>
+    <script src="js/example.js"></script>
 </head>
 <body>
 <h1>BabelNet API TEST</h1>
 
 <hr />
 
-<label for='term'>Term <label/>
+<label for='term'>Term </label>
 <input id='term' name='term' value=''/>
-<label for='lang'> in <label/>
+<label for='lang'> in </label>
 <select id='lang'>
     <option value='EN'>English</option>
     <option value='ES'>Spanish</option>
 </select>
-<label for='to'> to <label/>
+<label for='to'> to </label>
 <select id='to'>
     <option value='EN'>English</option>
     <option value='ES' selected='selected'>Spanish</option>
@@ -28,6 +28,7 @@
 <button id='translate'>Translate</button>
 <button id='edges'>Show edges</button>
 <button id='compoundWords'>Composed words</button>
+<button id='disambiguate'>Disambiguate</button>
 
 <hr/>
 
