@@ -14,7 +14,7 @@
 function showGlossesForTerm(babel, word, lang, container){
     container.html('');
 
-    $('<h2>Synsets (concepts) denoted by the word: "'+word+'"</h2>').appendTo(container);
+    $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(container);
 
     babel.getSynsetIds(word,lang).done(function(response){
         $.each(response, function(key, val) {
@@ -23,28 +23,70 @@ function showGlossesForTerm(babel, word, lang, container){
 
                 $('<h3>', {html:val['id']}).appendTo(container);
 
-                var entry = '';
-                $.each(response['senses'], function(key,value){
-                    entry += value['lemma'] + ', ';
-                })
+                if (Object.keys(response['senses']).length > 0){
+	                var entry = '';
+	                $.each(response['senses'], function(key,value){
+	                    entry += value['lemma'] + ', ';
+	                })
+	
+	                entry = entry.replace(/,\s*$/, "");
+	                $('<em>',{html:entry}).appendTo(container);
+	                $('<br>').appendTo(container);
+                }
 
-                entry = entry.replace(/,\s*$/, "");
-                $('<em>',{html:entry}).appendTo(container);
-                $('<br>').appendTo(container);
-
-                entry = '';
-                $.each(response['glosses'], function(key,value){
-                    entry += "Gloss: " + value['gloss'] + ' (' +value['language'] + ")<br/>";
-                    
-                })
-                $('<div>', {html:entry}).appendTo(container);
-                $('<hr>').appendTo(container);
+                if (Object.keys(response['glosses']).length > 0){
+	                entry = '';
+	                $.each(response['glosses'], function(key,value){
+	                    entry += "Gloss: " + value['gloss'] + ' (' +value['language'] + ")<br/>";
+	                    
+	                })
+	                $('<div>', {html:entry}).appendTo(container);
+	                $('<hr>').appendTo(container);
+                }
             });
         });
     });
 }
 
 
+/**
+ * 
+ * @param babel
+ * @param word
+ * @param from
+ * @param to
+ * @param container
+ */
+function showTranslationsForTerm(babel, word, from, to, container){
+    container.html('');
+
+    $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(container);
+
+    babel.getSynsetIds(word,from).done(function(response){
+        $.each(response, function(key, val) {
+        	babel.getSynset(val['id'],to).done(function(response){
+        		if (Object.keys(response['senses']).length > 0){
+	        		 $('<h3>', {html:val['id']}).appendTo(container);
+	                 var entry = '';
+	                 $.each(response['senses'], function(key,value){
+	                     entry += value['lemma'] + ', ';
+	                 })
+	                 entry = entry.replace(/,\s*$/, "");
+	                 $('<em>',{html:entry}).appendTo(container);
+	                 $('<hr>').appendTo(container);
+                 }
+        	});
+        });
+        
+    });
+}
+
+/**
+ * 
+ * @param babel
+ * @param id
+ * @param container
+ */
 function showEdgesForSynset(babel, id, container){
     container.html('');
 
@@ -69,7 +111,13 @@ function showEdgesForSynset(babel, id, container){
     });
 }
 
-
+/**
+ * 
+ * @param babel
+ * @param id
+ * @param lang
+ * @param container
+ */
 function showCompoudWords4Synset(babel, id, lang, container){
     container.html('');
 
@@ -102,6 +150,11 @@ $(document).ready(function (){
         showEdgesForSynset(babel,'bn:00016606n', $('#results'));
     });
 
+    
+    $('#translate').click(function(){        
+    	showTranslationsForTerm(babel, $('#term').val(), $('#lang').val(), $('#to').val(), $('#results'));
+    });
+    
     $('#compoundWords').click(function(){        
         showCompoudWords4Synset(babel,'bn:00012945n', 'EN', $('#results'));
     });
