@@ -4,10 +4,6 @@
  */
 
 
-// initi
-
-
-
 /**
  * 
  */
@@ -180,6 +176,15 @@ function showDisambiguation(babelfy,text, lang, container){
 $(document).ready(function (){
 	
 	var babel = new BabelNet();
+
+
+    $.getJSON('config.json')
+        .done(function(response){
+            babel.KEY = response['key'];
+        })
+        .fail(function(){
+            console.log('uh-oh');
+        });
 	
     $('#search').click(function(){
         var word = $('#term').val();        

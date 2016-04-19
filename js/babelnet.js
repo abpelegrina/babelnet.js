@@ -2,7 +2,7 @@
  * 
  */
 function BabelNet(){
-	this.key = '';
+	this.KEY = '';
     this.baseURL = 'https://babelnet.io/v3/';
     this.getSynsetURL = 'getSynset';
     this.getSynsetIdsURL =  'getSynsetIds';
@@ -10,10 +10,6 @@ function BabelNet(){
     this.getSensesURL = 'getSenses';
     this.getEdgesURL = 'getEdges';
     this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
-    
-    $.getJSON('../config.json').done(function(response){
-		this.key = response['key'];
-	});
 };
 
 
