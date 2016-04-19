@@ -179,7 +179,7 @@ function showDisambiguation(babelfy,text, lang, container){
 //Setup the JQuery components
 $(document).ready(function (){
 	
-	var babel = new BabelNet('<<KEY HERE>>');
+	var babel = new BabelNet();
 	
     $('#search').click(function(){
         var word = $('#term').val();        

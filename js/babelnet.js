@@ -1,20 +1,21 @@
-
-
 /**
  * 
  */
-function BabelNet(key){
-    this.KEY = key,
-
+function BabelNet(){
+	this.key = '';
     this.baseURL = 'https://babelnet.io/v3/';
-
     this.getSynsetURL = 'getSynset';
     this.getSynsetIdsURL =  'getSynsetIds';
     this.getVersionURL = 'getVersion';
     this.getSensesURL = 'getSenses';
     this.getEdgesURL = 'getEdges';
     this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
+    
+    $.getJSON('../config.json').done(function(response){
+		this.key = response['key'];
+	});
 };
+
 
 /**
  * 
