@@ -1,6 +1,8 @@
-var babel = new BabelNet('605862f1-fb95-4658-9cb1-53abf1b4e22a');
 
 
+/**
+ * 
+ */
 function BabelNet(key){
     this.KEY = key,
 
@@ -15,6 +17,7 @@ function BabelNet(key){
 };
 
 /**
+ * 
 */
 BabelNet.prototype.getSynset = function(id,lang){
     var params = {
@@ -26,12 +29,18 @@ BabelNet.prototype.getSynset = function(id,lang){
 };
 
 
+/**
+ * 
+ */
 BabelNet.prototype.getSynsetGlosses = function(id,lan, callback){
     this.getSynset(id,lan).done(function(response){
         $.each(response['glosses'], function (key, val){callback(key, val)});
     });
 };
 
+/**
+ * 
+ */
 BabelNet.prototype.getSynsetIds = function (word,lang){
     var params = {
         'word': word,
@@ -41,6 +50,9 @@ BabelNet.prototype.getSynsetIds = function (word,lang){
     return $.getJSON(this.baseURL + this.getSynsetIdsURL + "?", params);
 }
 
+/**
+ * 
+ */
 BabelNet.prototype.getEdges = function(id){
     var params = {
         'id':id,
@@ -50,6 +62,9 @@ BabelNet.prototype.getEdges = function(id){
     return $.getJSON(this.baseURL + this.getEdgesURL + "?", params);    
 }
 
+/**
+ * 
+ */
 BabelNet.prototype.disambiguate = function(text, lang, match='EXACT_MATCHING'){
     var params = {
         'text' : text,
