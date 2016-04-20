@@ -60,9 +60,17 @@ var Languages = Object.freeze({
                         ES: 'ES', 
                         EN: 'EN', 
                         FR: 'FR'
+                    });
 
-});
 
+/*Type of relations*/
+var TypeOfRelations = Object.freeze({
+                        HYPERNYM: 'HYPERNYM', 
+                        HYPONYM: 'HYPONYM', 
+                        MERONYM: 'MERONYM', 
+                        HOLONYM: 'HOLONYM',
+                        OTHER: 'OTHER', 
+                    });
 /**
  *
 */
