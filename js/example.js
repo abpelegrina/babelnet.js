@@ -130,15 +130,14 @@ function showEdgesForTerm(babel, word, lang,container){
 function showCompoudWordsForSynset(babel, id, lang, container){
 
     babel.getSynset(id,lang).done(function(response){
-        var entry = '';
+        var entry = new Array();
         $.each(response['lnToCompound'], function(key,value){
-            entry += value + ', ';
+            entry.push.apply(entry,value);
         })
-
-        entry = entry.replace(/,\s*$/, "");
-        if(entry != ''){
+        entryStr = entry.join(', ');
+        if(entryStr != ''){
             $('<h3>Compound words for the synset: "'+id+'"</h3>').appendTo(container);
-            $('<em>',{html:entry}).appendTo(container);
+            $('<em>',{html:entryStr}).appendTo(container);
             $('<br>').appendTo(container);
         }
     });
