@@ -9,9 +9,19 @@ function BabelNet(){
     this.getVersionURL = 'getVersion';
     this.getSensesURL = 'getSenses';
     this.getEdgesURL = 'getEdges';
+    this.getVersionURL = 'getVersion';
     this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
 };
 
+/**
+*
+*/
+BabelNet.prototype.getVersion = function(){
+    var params = {        
+        'key' : this.KEY
+    };
+    return $.getJSON(this.baseURL + this.getVersionURL + "?", params);
+};
 
 /**
  * 
