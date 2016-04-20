@@ -14,7 +14,57 @@ function BabelNet(){
 };
 
 /**
-*
+* PART OF SPEECH  (POS) possible values
+*/
+var PartOfSpeech = Object.freeze({
+                        ADJECTIVE: 'ADJECTIVE', 
+                        ADVERB: 'ADVERB', 
+                        ARTICLE: 'ARTICLE', 
+                        CONJUNCTION:'CONJUNCTION', 
+                        DETERMINER:'DETERMINER', 
+                        INTERJECTION:'INTERJECTION',
+                        NOUN : 'NOUN',
+                        PREPOSITION : 'PREPOSITION',
+                        PRONOUN : 'PRONOUN',
+                        VERB : 'VERB'
+                    });
+
+/**
+* 
+*/
+var Source = Object.freeze({
+                        BABELNET: 'BABELNET', 
+                        GEONM: 'GEONM', 
+                        IWN: 'IWN', 
+                        MSTERM:'MSTERM', 
+                        OMWIKI:'OMWIKI', 
+                        OMWN:'OMWN',
+                        VERBNET : 'VERBNET',
+                        WIKI : 'WIKI',
+                        WIKIDATA : 'WIKIDATA',
+                        WIKICAT : 'WIKICAT',
+                        WIKIDIS: 'WIKIDIS', 
+                        WIKIQU: 'WIKIQU', 
+                        WIKIQUREDI: 'WIKIQUREDI', 
+                        WIKIRED:'WIKIRED', 
+                        WIKITR:'WIKITR', 
+                        WIKT:'WIKT',
+                        WIKTLB : 'WIKTLB',
+                        WN : 'WN',
+                        WNTR : 'WNTR',
+                        WONEF : 'WONEF'
+                    });
+
+
+var Languages = Object.freeze({
+                        ES: 'ES', 
+                        EN: 'EN', 
+                        FR: 'FR'
+
+});
+
+/**
+ *
 */
 BabelNet.prototype.getVersion = function(){
     var params = {        
@@ -22,6 +72,35 @@ BabelNet.prototype.getVersion = function(){
     };
     return $.getJSON(this.baseURL + this.getVersionURL + "?", params);
 };
+
+
+/**
+ * 
+ */
+BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
+    var params = {
+        'word': word,
+        'langs': lang,
+        'key' : this.KEY
+    };
+
+    if (source in Source)
+        params['source'] = source;
+
+    if(POS in PartOfSpeech)
+        params['POS'] = POS;
+
+    var url = this.baseURL + this.getSynsetIdsURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&';
+    });
+
+    if(normalizer)
+        params['normalizer'] = true;
+
+    return $.getJSON(url, params);
+}
+
 
 /**
  * 
@@ -39,23 +118,33 @@ BabelNet.prototype.getSynset = function(id,lang){
 /**
  * 
  */
-BabelNet.prototype.getSynsetGlosses = function(id,lan, callback){
-    this.getSynset(id,lan).done(function(response){
-        $.each(response['glosses'], function (key, val){callback(key, val)});
-    });
-};
-
-/**
- * 
- */
-BabelNet.prototype.getSynsetIds = function (word,lang){
+BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
     var params = {
         'word': word,
         'langs': lang,
         'key' : this.KEY
     };
-    return $.getJSON(this.baseURL + this.getSynsetIdsURL + "?", params);
+
+    if (source in Source)
+        params['source'] = source;
+
+    if(POS in PartOfSpeech)
+        params['POS'] = POS;
+
+    var url = this.baseURL + this.getSensesURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&';
+    });
+
+    if(normalizer)
+        params['normalizer'] = true;
+
+    return $.getJSON(url, params);
 }
+
+
+
+
 
 /**
  * 
