@@ -84,13 +84,11 @@ function showTranslationsForTerm(babel, word, from, to, container){
  * @param container
  */
 function showEdgesForSynset(babel, id, container){
-    container.html('');
+    
 
     $('<h2>Edges for the synset: "'+id+'"</h2>').appendTo(container);
 
     babel.getEdges(id).done(function(response){
-
-        console.log(response);
         $.each(response, function(key, val) {
             var pointer = val['pointer'];
             var relation = pointer['name'];
@@ -110,16 +108,26 @@ function showEdgesForSynset(babel, id, container){
 }
 
 /**
+*
+*/
+function showEdgesForTerm(babel, word, lang,container){
+    container.html('');
+    babel.getSynsetIds(word,lang).done(function(response){
+         $.each(response, function(key, val) {
+             $('<h3>', {html:val['id']}).appendTo(container);
+             showEdgesForSynset(babel, val['id'], container);
+         });
+    });
+}
+
+/**
  * 
  * @param babel
  * @param id
  * @param lang
  * @param container
  */
-function showCompoudWords4Synset(babel, id, lang, container){
-    container.html('');
-
-    $('<h2>Compound words for the synset: "'+id+'"</h2>').appendTo(container);
+function showCompoudWordsForSynset(babel, id, lang, container){
 
     babel.getSynset(id,lang).done(function(response){
         var entry = '';
@@ -128,8 +136,23 @@ function showCompoudWords4Synset(babel, id, lang, container){
         })
 
         entry = entry.replace(/,\s*$/, "");
-        $('<em>',{html:entry}).appendTo(container);
-        $('<br>').appendTo(container);
+        if(entry != ''){
+            $('<h3>Compound words for the synset: "'+id+'"</h3>').appendTo(container);
+            $('<em>',{html:entry}).appendTo(container);
+            $('<br>').appendTo(container);
+        }
+    });
+}
+
+/**
+*
+*/
+function showCompoundWordsForTerm(babel, word, lang, container){
+    container.html('');
+    babel.getSynsetIds(word,lang).done(function(response){
+         $.each(response, function(key, val) {
+             showCompoudWordsForSynset(babel, val['id'], lang, container);
+         });
     });
 }
 
@@ -188,6 +211,7 @@ $(document).ready(function (){
             console.log('uh-oh');
         });
 	
+
     $('#search').click(function(){
         var word = $('#term').val();        
         var lang = $('#lang').val();
@@ -195,7 +219,11 @@ $(document).ready(function (){
     });
 
     $('#edges').click(function(){        
-        showEdgesForSynset(babel,'bn:00016606n', $('#results'));
+        
+        var word = $('#term').val();        
+        var lang = $('#lang').val();
+        showEdgesForTerm(babel, word, lang, $('#results'));
+        //showEdgesForSynset(babel,'bn:00016606n', $('#results'));
     });
 
     
@@ -204,7 +232,9 @@ $(document).ready(function (){
     });
     
     $('#compoundWords').click(function(){        
-        showCompoudWords4Synset(babel,'bn:00012945n', 'EN', $('#results'));
+        var word = $('#term').val();        
+        var lang = $('#lang').val();
+        showCompoundWordsForTerm(babel, word, lang, $('#results'));
     });
 
     $('#term').on('keypress', function (event) {
