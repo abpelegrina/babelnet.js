@@ -84,26 +84,25 @@ function showTranslationsForTerm(babel, word, from, to, container){
  * @param container
  */
 function showEdgesForSynset(babel, id, container){
-    
-
-    $('<h2>Edges for the synset: "'+id+'"</h2>').appendTo(container);
-
     babel.getEdges(id).done(function(response){
-        $.each(response, function(key, val) {
-            var pointer = val['pointer'];
-            var relation = pointer['name'];
-            var group = pointer['relationGroup'];
+        if (response.length > 0) {
+            $('<h3>Edges for the synset: "'+ id +'"</h3>').appendTo(container);
+            
+            $.each(response, function(key, val) {
+                var pointer = val['pointer'];
+                var relation = pointer['name'];
+                var group = pointer['relationGroup'];
 
-            //Show only hypernym, hyponym and meronym relations
-            if (  group == TypeOfRelations.HYPERNYM || group == TypeOfRelations.HYPONYM || group == TypeOfRelations.MERONYM) {
-                var entry = "Language: " + val['language']
-                    + "<br/>Target: " + val['target']
-                    + "<br/>Relation: " + relation
-                    + "<br/>Relation group: " + group + "<br/><br/>";
-                $('<div>', {html:entry}).appendTo(container);
-            }
-        });
-
+                //Show only hypernym, hyponym and meronym relations
+                if (  group == TypeOfRelations.HYPERNYM || group == TypeOfRelations.HYPONYM || group == TypeOfRelations.MERONYM) {
+                    var entry = "Language: " + val['language']
+                        + "<br/>Target: " + val['target']
+                        + "<br/>Relation: " + relation
+                        + "<br/>Relation group: " + group + "<br/><br/>";
+                    $('<div>', {html:entry}).appendTo(container);
+                }
+            });
+        }
     });
 }
 
@@ -114,7 +113,6 @@ function showEdgesForTerm(babel, word, lang,container){
     container.html('');
     babel.getSynsetIds(word,lang).done(function(response){
          $.each(response, function(key, val) {
-             $('<h3>', {html:val['id']}).appendTo(container);
              showEdgesForSynset(babel, val['id'], container);
          });
     });
