@@ -122,10 +122,10 @@ BabelNet.prototype.getSynset = function(id,lang){
 /**
  * 
  */
-BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
+BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=false){
     var params = {
         'word': word,
-        'langs': lang,
+        'lang': lang,
         'key' : this.KEY
     };
 
