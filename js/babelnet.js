@@ -13,9 +13,7 @@ function BabelNet(){
     this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
 };
 
-/**
-* PART OF SPEECH  (POS) possible values
-*/
+/* PART OF SPEECH  (POS) possible values */
 var PartOfSpeech = Object.freeze({
                         ADJECTIVE: 'ADJECTIVE', 
                         ADVERB: 'ADVERB', 
@@ -29,9 +27,7 @@ var PartOfSpeech = Object.freeze({
                         VERB : 'VERB'
                     });
 
-/**
-* 
-*/
+/* Sources */
 var Source = Object.freeze({
                         BABELNET: 'BABELNET', 
                         GEONM: 'GEONM', 
@@ -55,7 +51,7 @@ var Source = Object.freeze({
                         WONEF : 'WONEF'
                     });
 
-
+/*Languages*/
 var Languages = Object.freeze({
                         ES: 'ES', 
                         EN: 'EN', 
@@ -154,10 +150,10 @@ BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', sou
 /**
  * 
  */
-BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS='', source=''){
+BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS=''){
     var params = {
         'id':id,
-        'key': babel.KEY,
+        'key': this.KEY,
         'source' : source
     };
 
@@ -182,7 +178,7 @@ BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filte
 BabelNet.prototype.getEdges = function(id){
     var params = {
         'id':id,
-        'key': babel.KEY
+        'key': this.KEY
     };
 
     return $.getJSON(this.baseURL + this.getEdgesURL + "?", params);    

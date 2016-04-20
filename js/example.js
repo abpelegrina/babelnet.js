@@ -89,13 +89,15 @@ function showEdgesForSynset(babel, id, container){
     $('<h2>Edges for the synset: "'+id+'"</h2>').appendTo(container);
 
     babel.getEdges(id).done(function(response){
+
+        console.log(response);
         $.each(response, function(key, val) {
             var pointer = val['pointer'];
             var relation = pointer['name'];
             var group = pointer['relationGroup'];
 
-            //Types of relationGroup: HYPERNYM,  HYPONYM, MERONYM, HOLONYM, OTHER
-            if ((group.toLowerCase().indexOf("hypernym") > -1) || (group.toLowerCase().indexOf("hyponym") > -1) || (relation.toLowerCase().indexOf("antonym") > -1)) {
+            //Show only hypernym, hyponym and meronym relations
+            if (  group == TypeOfRelations.HYPERNYM || group == TypeOfRelations.HYPONYM || group == TypeOfRelations.MERONYM) {
                 var entry = "Language: " + val['language']
                     + "<br/>Target: " + val['target']
                     + "<br/>Relation: " + relation
