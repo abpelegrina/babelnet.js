@@ -143,7 +143,29 @@ BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', sou
 }
 
 
+/**
+ * 
+ */
+BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS='', source=''){
+    var params = {
+        'id':id,
+        'key': babel.KEY,
+        'source' : source
+    };
 
+    if (source == Source.WIKIQU || source==Source.WIKI){
+        if(POS in PartOfSpeech)
+            params['POS'] = POS;
+        params['lang'] = lang;
+    }
+
+    var url = this.baseURL + this.getSensesURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&';
+    });
+
+    return $.getJSON(this.baseURL + this.getEdgesURL + "?", params);    
+}
 
 
 /**
