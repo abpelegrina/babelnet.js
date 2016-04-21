@@ -82,8 +82,8 @@ See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters
 */
 var MCS = Object.freeze({
                         ON_WITH_STOPWORDS : "ON_WITH_STOPWORDS",
-                        ON = 'ON',
-                        OFF = 'OFF'
+                        ON : 'ON',
+                        OFF : 'OFF'
                   });
 
 /*
@@ -101,8 +101,8 @@ See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters
 */
 var SemanticAnnotationResource = Object.freeze({
                         BN : 'BN',
-                        WIKI = 'WIKI',
-                        WN = 'WN'
+                        WIKI :'WIKI',
+                        WN : 'WN'
                   });
 
 /*

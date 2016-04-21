@@ -163,7 +163,7 @@ function showCompoundWordsForTerm(babel, word, lang, container){
 function showDisambiguation(babelfy,text, lang, container){
    container.html('');
 
-    babelfy.disambiguate(text,lang).done(function(response) {
+    babelfy.disambiguate(text,lang, 'CONCEPTS').done(function(response) {
 
         var matches = [];
 
