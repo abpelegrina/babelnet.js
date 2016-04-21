@@ -224,8 +224,15 @@ $(document).ready(function (){
     });
 
     
-    $('#translate').click(function(){        
-    	showTranslationsForTerm(babel, $('#term').val(), $('#lang').val(), $('#to').val(), $('#results'));
+    $('#translate').click(function(){  
+
+        var to = $('#to').val();
+        var from = $('#lang').val();
+
+        if (to != from)
+    	   showTranslationsForTerm(babel, $('#term').val(), from, to, $('#results'));
+        else
+            alert('The source and target language are both the same!!!');
     });
     
     $('#compoundWords').click(function(){        
