@@ -133,12 +133,39 @@ BabelNet.prototype.getEdges = function(id){
 /**
  * 
  */
-BabelNet.prototype.disambiguate = function(text, lang, match='EXACT_MATCHING'){
+BabelNet.prototype.disambiguate = function(text, lang, annType='', annRes='', th='', match='', mcs='', dens='', cands='', posTag='', extAIDA=''){
     var params = {
         'text' : text,
         'lang' : lang,
         'key'  : this.KEY
     };
+
+    if (annType in SemanticAnnotationType)
+        params['annType'] = annType;
+
+    if (annRes in SemanticAnnotationResource)
+        params['annRes'] = annRes;
+
+    if ($.isNumeric(th))
+        params['th'] = th;
+
+    if(match in MatchingType)
+        params['match'] = match;
+
+    if(mcs in MCS)
+        params['mcs'] = mcs;
+
+    if(typeof(dens) === "boolean")
+        params['dens']= dens;
+
+    if (cands in ScoredCandidates)
+        params['cands'] = cands;
+
+    if (posTag in PosTaggingOptions)
+        params['posTag'] = posTag;
+
+    if(typeof(extAIDA) === "boolean")
+        params['extAIDA']= extAIDA;    
 
     return $.getJSON(this.babelfyURL + "?", params);
 }

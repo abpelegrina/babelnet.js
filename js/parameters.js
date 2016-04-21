@@ -95,4 +95,22 @@ var MatchingType = Object.freeze({
                         PARTIAL_MATCHING:'PARTIAL_MATCHING'
                   });
 
+/*
+Restrict the disambiguated entries to only WordNet, Wikipedia or BabelNet.
+See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationResource.html
+*/
+var SemanticAnnotationResource = Object.freeze({
+                        BN : 'BN',
+                        WIKI = 'WIKI',
+                        WN = 'WN'
+                  });
 
+/*
+Restrict the disambiguated entries to only named entities, word senses or both.
+See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationType.html
+*/
+var SemanticAnnotationType = Object.freeze({
+                        ALL : 'ALL',
+                        CONCEPTS : 'CONCEPTS',
+                        NAMED_ENTITIES : 'NAMED_ENTITIES'
+                  });
