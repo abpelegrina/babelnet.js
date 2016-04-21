@@ -52,3 +52,9 @@ var TypeOfRelations = Object.freeze({
                         HOLONYM: 'HOLONYM',
                         OTHER: 'OTHER', 
                     });
+
+
+var ScoredCandidates = Object.freeze({
+                        ALL: 'ALL', 
+                        TOP: 'TOP'
+                    });
