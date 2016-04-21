@@ -85,3 +85,14 @@ var MCS = Object.freeze({
                         ON = 'ON',
                         OFF = 'OFF'
                   });
+
+/*
+Parameter to select the candidate extraction strategy.
+See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.MatchingType.html#EXACT_MATCHING
+*/
+var MatchingType = Object.freeze({
+                        EXACT_MATCHING:'EXACT_MATCHING',
+                        PARTIAL_MATCHING:'PARTIAL_MATCHING'
+                  });
+
+
