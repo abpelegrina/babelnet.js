@@ -1,3 +1,7 @@
+/**
+ *
+ */
+
 /* PART OF SPEECH  (POS) possible values */
 var PartOfSpeech = Object.freeze({
                         ADJECTIVE: 'ADJECTIVE', 
@@ -58,3 +62,13 @@ var ScoredCandidates = Object.freeze({
                         ALL: 'ALL', 
                         TOP: 'TOP'
                     });
+/*
+Part of Speech tagging option. See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.PosTaggingOptions.html
+*/
+var PosTaggingOptions = Object.freeze({
+                        CHAR_BASED_TOKENIZATION_ALL_NOUN : 'CHAR_BASED_TOKENIZATION_ALL_NOUN',
+                        INPUT_FRAGMENTS_AS_NOUNS : 'INPUT_FRAGMENTS_AS_NOUNS',
+                        NOMINALIZE_ADJECTIVES : 'NOMINALIZE_ADJECTIVES',
+                        STANDARD : 'STANDARD'
+
+});
