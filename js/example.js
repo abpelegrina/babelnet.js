@@ -159,8 +159,6 @@ function countWordsInString(str){
 
 
 function highlightDisambiguation(sentence, m){
-  
-    console.log(m);
 
     m.sort(function(a,b){
         
@@ -180,17 +178,10 @@ function highlightDisambiguation(sentence, m){
     $.each(m, function(key, val) {
         var fragments = highlighted.split(val.synset);
 
-        console.log('split for "' + val.synset + '":');
-        console.log(fragments);
-
-        var res = fragments[0];
+        highlighted = fragments[0];
         for (var i = 1; i<fragments.length; i++){
-            res += '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i];
+            highlighted += '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i];
         }
-
-        highlighted = res;
-        
-        console.log('---');
     });
 
     return highlighted.substring(1, highlighted.length-1);
