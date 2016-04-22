@@ -197,7 +197,7 @@ function highlightDisambiguation(sentence, m){
 function showDisambiguation(babelfy,text, lang, container){
     container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
 
-    babelfy.disambiguate(text,lang, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING).done(function(response) {
+    babelfy.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
 
         var matches = [];
 
@@ -220,21 +220,23 @@ function showDisambiguation(babelfy,text, lang, container){
 
         $('<pre>',{html:highlightedSentence}).appendTo(container);
         
-        
         $.each(matches, function(key, val) {
             babelfy.getSynset(val.id,lang).done(function(response){
                 var id = response['senses'][0]['synsetID']['id'];
 
-                var gloss = '-';
-                if(typeof response['glosses'][0] !== "undefined")
-                    gloss = response['glosses'][0]['gloss'];
+                var gloss = '';
+                if(typeof response['glosses'][0] !== "undefined"){
+                    $.each(response['glosses'], function(key, value){
+                        gloss += value.gloss + '\n-\n';
+                    });
+                }
 
-                console.log(val.id);
+                if (gloss != ''){
+                    $(document.getElementById(val.id)).prop('title', gloss);
 
-                $(document.getElementById(val.id)).prop('title', gloss);
-
-                var entry = val.synset + ': ' + gloss;
-                $('<p>',{html:entry}).appendTo(container);
+                    var entry = val.synset + ': ' + gloss;
+                    $('<p>',{html:entry}).appendTo(container);
+                }
             });
         });
     });
