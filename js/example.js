@@ -153,6 +153,50 @@ function showCompoundWordsForTerm(babel, word, lang, container){
     });
 }
 
+function countWordsInString(str){
+    return str.split(' ').length;
+}
+
+
+function highlightDisambiguation(sentence, m){
+  
+    console.log(m);
+
+    m.sort(function(a,b){
+        
+        var numWordsA = countWordsInString(a.synset);
+        var numWordsB = countWordsInString(b.synset);
+
+        //console.log('len('+a.synset+') = ' + numWordsA  +', lenB('+b.synset+') = ' + numWordsB);
+
+        if (numWordsA < numWordsB)
+            return 1;
+        else if (numWordsA > numWordsB)
+            return -1;
+        else 
+            return 0;
+    });
+    var highlighted = '.' + sentence + '.';
+    $.each(m, function(key, val) {
+        var fragments = highlighted.split(val.synset);
+
+        console.log('split for "' + val.synset + '":');
+        console.log(fragments);
+
+        var res = '';
+        for (var i = 0; i<fragments.length-1; i+=2){
+            res += fragments[i] + '<span id="'+val.id+'" style="background-color:rgba(255, 255, 0, 0.25);">' + val.synset + '</span>' + fragments[i+1];
+            console.log('highlighted['+i+'] = '+res);
+        }
+
+        highlighted = res;
+        
+        console.log('---');
+    });
+
+    return highlighted;
+}
+
 /**
  * 
  * @param babelfy
@@ -161,7 +205,7 @@ function showCompoundWordsForTerm(babel, word, lang, container){
  * @param container
  */
 function showDisambiguation(babelfy,text, lang, container){
-   container.html('');
+    container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
 
     babelfy.disambiguate(text,lang, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING).done(function(response) {
 
@@ -174,11 +218,19 @@ function showDisambiguation(babelfy,text, lang, container){
             var cfEnd = charFragment['end'];           
 
             var synsetID = val['babelSynsetID'];
-            matches[synsetID] = text.substring(cfStart, cfEnd+1);
+
+            var inArray = $.grep(matches, function(e){ return e.id == synsetID; }).length;
+
+            if (inArray == 0)
+                matches.push({id:synsetID, synset:text.substring(cfStart, cfEnd+1)});
         });
 
-        console.log(matches);
 
+        var highlightedSentence = highlightDisambiguation(text, matches);
+
+        $('<pre>',{html:highlightedSentence}).appendTo(container);
+        
+        /*
         for (var key in matches){
             babelfy.getSynset(key,lang).done(function(response){
                 var id = response['senses'][0]['synsetID']['id'];
@@ -190,7 +242,7 @@ function showDisambiguation(babelfy,text, lang, container){
                 var entry = matches[id] + ': ' + gloss;
                 $('<p>',{html:entry}).appendTo(container);
             });
-        }
+        }*/
     });
 }
 
