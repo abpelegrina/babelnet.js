@@ -176,17 +176,16 @@ function highlightDisambiguation(sentence, m){
         else 
             return 0;
     });
-    var highlighted = '.' + sentence + '.';
+    var highlighted = '#' + sentence + '#';
     $.each(m, function(key, val) {
         var fragments = highlighted.split(val.synset);
 
         console.log('split for "' + val.synset + '":');
         console.log(fragments);
 
-        var res = '';
-        for (var i = 0; i<fragments.length-1; i+=2){
-            res += fragments[i] + '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i+1];
-            console.log('highlighted['+i+'] = '+res);
+        var res = fragments[0];
+        for (var i = 1; i<fragments.length; i++){
+            res += '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i];
         }
 
         highlighted = res;
@@ -194,7 +193,7 @@ function highlightDisambiguation(sentence, m){
         console.log('---');
     });
 
-    return highlighted;
+    return highlighted.substring(1, highlighted.length-1);
 }
 
 /**
