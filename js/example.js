@@ -185,7 +185,7 @@ function highlightDisambiguation(sentence, m){
 
         var res = '';
         for (var i = 0; i<fragments.length-1; i+=2){
-            res += fragments[i] + '<span id="'+val.id+'" style="background-color:rgba(255, 255, 0, 0.25);">' + val.synset + '</span>' + fragments[i+1];
+            res += fragments[i] + '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i+1];
             console.log('highlighted['+i+'] = '+res);
         }
 
