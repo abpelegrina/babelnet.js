@@ -220,19 +220,23 @@ function showDisambiguation(babelfy,text, lang, container){
 
         $('<pre>',{html:highlightedSentence}).appendTo(container);
         
-        /*
-        for (var key in matches){
-            babelfy.getSynset(key,lang).done(function(response){
+        
+        $.each(matches, function(key, val) {
+            babelfy.getSynset(val.id,lang).done(function(response){
                 var id = response['senses'][0]['synsetID']['id'];
 
                 var gloss = '-';
                 if(typeof response['glosses'][0] !== "undefined")
                     gloss = response['glosses'][0]['gloss'];
 
-                var entry = matches[id] + ': ' + gloss;
+                console.log(val.id);
+
+                $(document.getElementById(val.id)).prop('title', gloss);
+
+                var entry = val.synset + ': ' + gloss;
                 $('<p>',{html:entry}).appendTo(container);
             });
-        }*/
+        });
     });
 }
 
