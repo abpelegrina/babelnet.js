@@ -911,12 +911,160 @@ var isoLangs = Object.freeze({
         "name":"Cebuano",
         "nativeName":""
     },
-    :{
+    MIN:{
+        "name":"Minangkabau",
+        "nativeName":""
+    },
+    NEW:{
+        "name":"Newar / Nepal Bhasa",
+        "nativeName":""
+    },
+    PMS:{
+        "name":"Piedmontese",
+        "nativeName":""
+    },
+    BE_X_OLD:{
+        "name":"Belarusian (Taraškievica)",
+        "nativeName":""
+    },
+    PNB:{
+        "name":"Western Panjabi",
+        "nativeName":""
+    },
+    ZH_YUE:{
+        "name":"Cantonese",
+        "nativeName":""
+    },
+    LMO:{
+        "name":"Lombard",
+        "nativeName":""
+    },
+    BPY:{
+        "name":"Bishnupriya Manipuri",
+        "nativeName":""
+    },
+    SCO:{
+        "name":"Scots",
+        "nativeName":""
+    },
+    SCN:{
+        "name":"Sicilian",
+        "nativeName":""
+    },
+    NDS:{
+        "name":"Low Saxon",
+        "nativeName":""
+    },
+    AST:{
+        "name":"Asturian",
+        "nativeName":""
+    },
+    ALS:{
+        "name":"Alemannic",
+        "nativeName":""
+    },
+    NAP:{
+        "name":"Neapolitan",
+        "nativeName":""
+    },
+    CKB:{
+        "name":"Sorani",
+        "nativeName":""
+    },
+    BUG:{
+        "name":"Buginese",
+        "nativeName":""
+    },
+    BAT_SMG:{
+        "name":"Samogitian",
+        "nativeName":""
+    },
+    ARZ:{
+        "name":"Egyptian Arabic",
+        "nativeName":""
+    },
+    MZN:{
+        "name":"Mazandarani",
+        "nativeName":""
+    },
+    ZH_MIN_NAN:{
+        "name":"Min Nan",
+        "nativeName":""
+    },
+    SAH:{
+        "name":"Sakha",
+        "nativeName":""
+    },
+    VEC:{
+        "name":"Venetian",
+        "nativeName":""
+    },
+    BAR:{
+        "name":"Bavarian",
+        "nativeName":""
+    },
+    NAH:{
+        "name":"Nahuatl",
+        "nativeName":""
+    },
+    ROA_TARA:{
+        "name":"Tarantino",
+        "nativeName":""
+    },
+    PAM:{
+        "name":"Kapampangan",
+        "nativeName":""
+    },
+    HSV:{
         "name":"",
         "nativeName":""
     },
-    :{
-        "name":"",
+    HSB:{
+        "name":"Upper Sorbian",
+        "nativeName":""
+    },
+    MRJ:{
+        "name":"Hill Mari",
+        "nativeName":""
+    },
+    ILO:{
+        "name":"Fiji Hindi",
+        "nativeName":""
+    },
+    HIF:{
+        "name":"Fiji Hindi",
+        "nativeName":""
+    },
+    BCL:{
+        "name":"Central Bicolano",
+        "nativeName":""
+    },
+    GAN:{
+        "name":"Gan",
+        "nativeName":""
+    },
+    FRR:{
+        "name":"North Frisian",
+        "nativeName":""
+    },
+    RUE:{
+        "name":"Rusyn",
+        "nativeName":""
+    },
+    GLK:{
+        "name":"Gilaki",
+        "nativeName":""
+    },
+    MHR:{
+        "name":"Meadow Mari",
+        "nativeName":""
+    },
+    NDS_NL:{
+        "name":"Dutch Low Saxon",
+        "nativeName":""
+    },
+    FIU_VRO:{
+        "name":"Võro",
         "nativeName":""
     },
     :{
@@ -951,4 +1099,30 @@ var isoLangs = Object.freeze({
         "name":"",
         "nativeName":""
     }
+,
+    :{
+        "name":"",
+        "nativeName":""
+    },
+    :{
+        "name":"",
+        "nativeName":""
+    },
+    :{
+        "name":"",
+        "nativeName":""
+    },
+    :{
+        "name":"",
+        "nativeName":""
+    },
+    :{
+        "name":"",
+        "nativeName":""
+    },
+    :{
+        "name":"",
+        "nativeName":""
+    }
+
 });
