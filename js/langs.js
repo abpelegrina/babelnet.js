@@ -59,7 +59,7 @@ var isoLangs = Object.freeze({
         "name":"Bambara",
         "nativeName":"bamanankan"
     },
-    "BA":{
+    BA:{
         "name":"Bashkir",
         "nativeName":"башҡорт теле"
     },
@@ -83,11 +83,11 @@ var isoLangs = Object.freeze({
         "name":"Bislama",
         "nativeName":"Bislama"
     },
-    "BS":{
+    BS:{
         "name":"Bosnian",
         "nativeName":"bosanski jezik"
     },
-    "BR":{
+    BR:{
         "name":"Breton",
         "nativeName":"brezhoneg"
     },
@@ -95,7 +95,7 @@ var isoLangs = Object.freeze({
         "name":"Bulgarian",
         "nativeName":"български език"
     },
-    "MY":{
+    MY:{
         "name":"Burmese",
         "nativeName":"ဗမာစာ"
     },
@@ -107,7 +107,7 @@ var isoLangs = Object.freeze({
         "name":"Chamorro",
         "nativeName":"Chamoru"
     },
-    "CE":{
+    CE:{
         "name":"Chechen",
         "nativeName":"нохчийн мотт"
     },
@@ -215,7 +215,7 @@ var isoLangs = Object.freeze({
         "name":"Gujarati",
         "nativeName":"ગુજરાતી"
     },
-    "HT":{
+    HT:{
         "name":"Haitian; Haitian Creole",
         "nativeName":"Kreyòl ayisyen"
     },
@@ -287,7 +287,7 @@ var isoLangs = Object.freeze({
         "name":"Japanese",
         "nativeName":"日本語 (にほんご／にっぽんご)"
     },
-    "JV":{
+    JV:{
         "name":"Javanese",
         "nativeName":"basa Jawa"
     },
@@ -351,7 +351,7 @@ var isoLangs = Object.freeze({
         "name":"Latin",
         "nativeName":"latine, lingua latina"
     },
-    "LB":{
+    LB:{
         "name":"Luxembourgish, Letzeburgesch",
         "nativeName":"Lëtzebuergesch"
     },
@@ -391,7 +391,7 @@ var isoLangs = Object.freeze({
         "name":"Macedonian",
         "nativeName":"македонски јазик"
     },
-    "MG":{
+    MG:{
         "name":"Malagasy",
         "nativeName":"Malagasy fiteny"
     },
@@ -399,7 +399,7 @@ var isoLangs = Object.freeze({
         "name":"Malay",
         "nativeName":"bahasa Melayu, بهاس ملايو‎"
     },
-    "ML":{
+    ML:{
         "name":"Malayalam",
         "nativeName":"മലയാളം"
     },
@@ -411,7 +411,7 @@ var isoLangs = Object.freeze({
         "name":"Māori",
         "nativeName":"te reo Māori"
     },
-    "MR":{
+    MR:{
         "name":"Marathi (Marāṭhī)",
         "nativeName":"मराठी"
     },
@@ -611,7 +611,7 @@ var isoLangs = Object.freeze({
         "name":"Tamil",
         "nativeName":"தமிழ்"
     },
-    "TE":{
+    TE:{
         "name":"Telugu",
         "nativeName":"తెలుగు"
     },
