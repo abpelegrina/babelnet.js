@@ -1,4 +1,4 @@
-var isoLangs = Object.freeze({
+var Langs = Object.freeze({
     AB:{
         "name":"Abkhaz",
         "nativeName":"аҧсуа"

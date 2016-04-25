@@ -4,44 +4,54 @@
  */
 
 
+function showErrorLang(lang, container){
+    $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(container);
+}
+
 /**
  * 
  */
 function showGlossesForTerm(babel, word, lang, container){
     container.html('');
 
-    $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(container);
 
-    babel.getSynsetIds(word,lang).done(function(response){
-        $.each(response, function(key, val) {
-           
-            babel.getSynset(val['id'],lang).done(function(response){
+    if(lang in Langs){
 
-                $('<h3>', {html:val['id']}).appendTo(container);
+        $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(container);
 
-                if (Object.keys(response['senses']).length > 0){
-	                var entry = '';
-	                $.each(response['senses'], function(key,value){
-	                    entry += value['lemma'] + ', ';
-	                })
-	
-	                entry = entry.replace(/,\s*$/, "");
-	                $('<em>',{html:entry}).appendTo(container);
-	                $('<br>').appendTo(container);
-                }
+        babel.getSynsetIds(word,lang).done(function(response){
+            $.each(response, function(key, val) {
+               
+                babel.getSynset(val['id'],lang).done(function(response){
 
-                if (Object.keys(response['glosses']).length > 0){
-	                entry = '';
-	                $.each(response['glosses'], function(key,value){
-	                    entry += "Gloss: " + value['gloss'] + ' (' +value['language'] + ")<br/>";
-	                    
-	                })
-	                $('<div>', {html:entry}).appendTo(container);
-	                $('<hr>').appendTo(container);
-                }
+                    $('<h3>', {html:val['id']}).appendTo(container);
+
+                    if (Object.keys(response['senses']).length > 0){
+    	                var entry = '';
+    	                $.each(response['senses'], function(key,value){
+    	                    entry += value['lemma'] + ', ';
+    	                })
+    	
+    	                entry = entry.replace(/,\s*$/, "");
+    	                $('<em>',{html:entry}).appendTo(container);
+    	                $('<br>').appendTo(container);
+                    }
+
+                    if (Object.keys(response['glosses']).length > 0){
+    	                entry = '';
+    	                $.each(response['glosses'], function(key,value){
+    	                    entry += "Gloss: " + value['gloss'] + ' (' +value['language'] + ")<br/>";
+    	                    
+    	                })
+    	                $('<div>', {html:entry}).appendTo(container);
+    	                $('<hr>').appendTo(container);
+                    }
+                });
             });
         });
-    });
+    }
+    else 
+        showErrorLang(lang, container);        
 }
 
 
@@ -56,25 +66,30 @@ function showGlossesForTerm(babel, word, lang, container){
 function showTranslationsForTerm(babel, word, from, to, container){
     container.html('');
 
-    $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(container);
+    if(from in Langs && to in Langs){
 
-    babel.getSynsetIds(word,from).done(function(response){
-        $.each(response, function(key, val) {
-        	babel.getSynset(val['id'],to).done(function(response){
-        		if (Object.keys(response['senses']).length > 0){
-	        		 $('<h3>', {html:val['id']}).appendTo(container);
-	                 var entry = '';
-	                 $.each(response['senses'], function(key,value){
-	                     entry += value['lemma'] + ', ';
-	                 })
-	                 entry = entry.replace(/,\s*$/, "");
-	                 $('<em>',{html:entry}).appendTo(container);
-	                 $('<hr>').appendTo(container);
-                 }
-        	});
+        $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(container);
+
+        babel.getSynsetIds(word,from).done(function(response){
+            $.each(response, function(key, val) {
+            	babel.getSynset(val['id'],to).done(function(response){
+            		if (Object.keys(response['senses']).length > 0){
+    	        		 $('<h3>', {html:val['id']}).appendTo(container);
+    	                 var entry = '';
+    	                 $.each(response['senses'], function(key,value){
+    	                     entry += value['lemma'] + ', ';
+    	                 })
+    	                 entry = entry.replace(/,\s*$/, "");
+    	                 $('<em>',{html:entry}).appendTo(container);
+    	                 $('<hr>').appendTo(container);
+                     }
+            	});
+            });
+            
         });
-        
-    });
+    }
+    else 
+        showErrorLang(to+' or ' + from, container);
 }
 
 /**
@@ -111,11 +126,15 @@ function showEdgesForSynset(babel, id, container){
 */
 function showEdgesForTerm(babel, word, lang,container){
     container.html('');
-    babel.getSynsetIds(word,lang).done(function(response){
-         $.each(response, function(key, val) {
-             showEdgesForSynset(babel, val['id'], container);
-         });
-    });
+    if(lang in Langs){
+        babel.getSynsetIds(word,lang).done(function(response){
+             $.each(response, function(key, val) {
+                 showEdgesForSynset(babel, val['id'], container);
+             });
+        });
+    }
+    else
+       showErrorLang(lang, container);
 }
 
 /**
@@ -146,11 +165,15 @@ function showCompoudWordsForSynset(babel, id, lang, container){
 */
 function showCompoundWordsForTerm(babel, word, lang, container){
     container.html('');
-    babel.getSynsetIds(word,lang).done(function(response){
-         $.each(response, function(key, val) {
-             showCompoudWordsForSynset(babel, val['id'], lang, container);
-         });
-    });
+    if(lang in Langs){
+        babel.getSynsetIds(word,lang).done(function(response){
+             $.each(response, function(key, val) {
+                 showCompoudWordsForSynset(babel, val['id'], lang, container);
+             });
+        });
+    }
+    else
+        showErrorLang(lang, container);
 }
 
 function countWordsInString(str){
@@ -165,8 +188,6 @@ function highlightDisambiguation(sentence, m){
         var numWordsA = countWordsInString(a.synset);
         var numWordsB = countWordsInString(b.synset);
 
-        //console.log('len('+a.synset+') = ' + numWordsA  +', lenB('+b.synset+') = ' + numWordsB);
-
         if (numWordsA < numWordsB)
             return 1;
         else if (numWordsA > numWordsB)
@@ -174,6 +195,7 @@ function highlightDisambiguation(sentence, m){
         else 
             return 0;
     });
+
     var highlighted = '#' + sentence + '#';
     $.each(m, function(key, val) {
         var fragments = highlighted.split(val.synset);
@@ -197,49 +219,54 @@ function highlightDisambiguation(sentence, m){
 function showDisambiguation(babelfy,text, lang, container){
     container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
 
-    babelfy.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
+    if(lang in Langs){
 
-        var matches = [];
+        babelfy.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
 
-        $.each(response, function(key, val) {
-            // retrieving char fragment
-            var charFragment = val['charFragment'];
-            var cfStart = charFragment['start'];
-            var cfEnd = charFragment['end'];           
+            var matches = [];
 
-            var synsetID = val['babelSynsetID'];
+            $.each(response, function(key, val) {
+                // retrieving char fragment
+                var charFragment = val['charFragment'];
+                var cfStart = charFragment['start'];
+                var cfEnd = charFragment['end'];           
 
-            var inArray = $.grep(matches, function(e){ return e.id == synsetID; }).length;
+                var synsetID = val['babelSynsetID'];
 
-            if (inArray == 0)
-                matches.push({id:synsetID, synset:text.substring(cfStart, cfEnd+1)});
-        });
+                var inArray = $.grep(matches, function(e){ return e.id == synsetID; }).length;
+
+                if (inArray == 0)
+                    matches.push({id:synsetID, synset:text.substring(cfStart, cfEnd+1)});
+            });
 
 
-        var highlightedSentence = highlightDisambiguation(text, matches);
+            var highlightedSentence = highlightDisambiguation(text, matches);
 
-        $('<pre>',{html:highlightedSentence}).appendTo(container);
-        
-        $.each(matches, function(key, val) {
-            babelfy.getSynset(val.id,lang).done(function(response){
-                var id = response['senses'][0]['synsetID']['id'];
+            $('<pre>',{html:highlightedSentence}).appendTo(container);
+            
+            $.each(matches, function(key, val) {
+                babelfy.getSynset(val.id,lang).done(function(response){
+                    var id = response['senses'][0]['synsetID']['id'];
 
-                var gloss = '';
-                if(typeof response['glosses'][0] !== "undefined"){
-                    $.each(response['glosses'], function(key, value){
-                        gloss += value.gloss + '\n-\n';
-                    });
-                }
+                    var gloss = '';
+                    if(typeof response['glosses'][0] !== "undefined"){
+                        $.each(response['glosses'], function(key, value){
+                            gloss += value.gloss + '\n-\n';
+                        });
+                    }
 
-                if (gloss != ''){
-                    $(document.getElementById(val.id)).prop('title', gloss);
+                    if (gloss != ''){
+                        $(document.getElementById(val.id)).prop('title', gloss);
 
-                    var entry = val.synset + ': ' + gloss;
-                    $('<p>',{html:entry}).appendTo(container);
-                }
+                        var entry = val.synset + ': ' + gloss;
+                        $('<p>',{html:entry}).appendTo(container);
+                    }
+                });
             });
         });
-    });
+    }
+    else 
+        showErrorLang(lang, container); 
 }
 
 //Setup the JQuery components
@@ -268,7 +295,6 @@ $(document).ready(function (){
         var word = $('#term').val();        
         var lang = $('#lang').val();
         showEdgesForTerm(babel, word, lang, $('#results'));
-        //showEdgesForSynset(babel,'bn:00016606n', $('#results'));
     });
 
     
@@ -291,14 +317,8 @@ $(document).ready(function (){
 
     $('#term').on('keypress', function (event) {
          if(event.which === 13){
-
-            //Disable textbox to prevent multiple submit
-            $(this).attr("disabled", "disabled");
             var lang = $('#lang').val();
             showGlossesForTerm(babel,$(this).val(),lang, $('#results'));
-
-            //Do Stuff, submit, etc..
-            $(this).removeAttr("disabled");
          }
    });
    
