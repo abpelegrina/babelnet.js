@@ -823,92 +823,92 @@ var isoLangs = Object.freeze({
         "name":"Palatinate German",
         "nativeName":""
     },
-    :{
-        "name":"",
+    LEZ:{
+        "name":"Lezgian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    DSB:{
+        "name":"Lower Sorbian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    MWL:{
+        "name":"Mirandese",
         "nativeName":""
     },
-    :{
-        "name":"",
+    FRP:{
+        "name":"Franco-Provençal/Arpitan",
         "nativeName":""
     },
-    :{
-        "name":"",
+    EXT:{
+        "name":"Extremaduran",
         "nativeName":""
     },
-    :{
-        "name":"",
+    ACE:{
+        "name":"Acehnese",
         "nativeName":""
     },
-    :{
-        "name":"",
+    ANG:{
+        "name":"Anglo-Saxon",
         "nativeName":""
     },
-    :{
-        "name":"",
+    SZL:{
+        "name":"Silesian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    NOV:{
+        "name":"Novial",
         "nativeName":""
     },
-    :{
-        "name":"",
+    KSH:{
+        "name":"Ripuarian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    PCD:{
+        "name":"Picard",
         "nativeName":""
     },
-    :{
-        "name":"",
+    GAG:{
+        "name":"Gagauz",
         "nativeName":""
     },
-    :{
-        "name":"",
+    CBK_ZAM:{
+        "name":"Zamboanga Chavacano",
         "nativeName":""
     },
-    :{
-        "name":"",
+    EML:{
+        "name":"Emilian-Romagnol",
         "nativeName":""
     },
-    :{
-        "name":"",
+    FUR:{
+        "name":"Friulian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    LIJ:{
+        "name":"Ligurian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    WUU:{
+        "name":"Wu",
         "nativeName":""
     },
-    :{
-        "name":"",
+    LAD:{
+        "name":"Ladino",
         "nativeName":""
     },
-    :{
-        "name":"",
+    STQ:{
+        "name":"Saterland Frisian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    SIMPLE:{
+        "name":"Simple English",
         "nativeName":""
     },
-    :{
-        "name":"",
+    WAR:{
+        "name":"Waray-Waray",
         "nativeName":""
     },
-    :{
-        "name":"",
+    CEB:{
+        "name":"Cebuano",
         "nativeName":""
     },
     :{
