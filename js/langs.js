@@ -1,5 +1,5 @@
 var isoLangs = Object.freeze({
-    "AB":{
+    AB:{
         "name":"Abkhaz",
         "nativeName":"аҧсуа"
     },
@@ -35,11 +35,11 @@ var isoLangs = Object.freeze({
         "name":"Armenian",
         "nativeName":"Հայերեն"
     },
-    "AS":{
+    AS:{
         "name":"Assamese",
         "nativeName":"অসমীয়া"
     },
-    "AV":{
+    AV:{
         "name":"Avaric",
         "nativeName":"авар мацӀ, магӀарул мацӀ"
     },
@@ -47,7 +47,7 @@ var isoLangs = Object.freeze({
         "name":"Avestan",
         "nativeName":"avesta"
     },
-    "AY":{
+    AY:{
         "name":"Aymara",
         "nativeName":"aymar aru"
     },
@@ -75,7 +75,7 @@ var isoLangs = Object.freeze({
         "name":"Bengali",
         "nativeName":"বাংলা"
     },
-    "BH":{
+    BH:{
         "name":"Bihari",
         "nativeName":"भोजपुरी"
     },
@@ -123,11 +123,11 @@ var isoLangs = Object.freeze({
         "name":"Chuvash",
         "nativeName":"чӑваш чӗлхи"
     },
-    "KW":{
+    KW:{
         "name":"Cornish",
         "nativeName":"Kernewek"
     },
-    "CO":{
+    CO:{
         "name":"Corsican",
         "nativeName":"corsu, lingua corsa"
     },
@@ -147,7 +147,7 @@ var isoLangs = Object.freeze({
         "name":"Danish",
         "nativeName":"dansk"
     },
-    "DV":{
+    DV:{
         "name":"Divehi; Dhivehi; Maldivian;",
         "nativeName":"ދިވެހި"
     },
@@ -207,7 +207,7 @@ var isoLangs = Object.freeze({
         "name":"Greek, Modern",
         "nativeName":"Ελληνικά"
     },
-    "GN":{
+    GN:{
         "name":"Guaraní",
         "nativeName":"Avañeẽ"
     },
@@ -219,7 +219,7 @@ var isoLangs = Object.freeze({
         "name":"Haitian; Haitian Creole",
         "nativeName":"Kreyòl ayisyen"
     },
-    "HA":{
+    HA:{
         "name":"Hausa",
         "nativeName":"Hausa, هَوُسَ"
     },
@@ -251,7 +251,7 @@ var isoLangs = Object.freeze({
         "name":"Indonesian",
         "nativeName":"Bahasa Indonesia"
     },
-    "IE":{
+    IE:{
         "name":"Interlingue",
         "nativeName":"Originally called Occidental; then Interlingue after WWII"
     },
@@ -259,7 +259,7 @@ var isoLangs = Object.freeze({
         "name":"Irish",
         "nativeName":"Gaeilge"
     },
-    "IG":{
+    IG:{
         "name":"Igbo",
         "nativeName":"Asụsụ Igbo"
     },
@@ -311,7 +311,7 @@ var isoLangs = Object.freeze({
         "name":"Kazakh",
         "nativeName":"Қазақ тілі"
     },
-    "KM":{
+    KM:{
         "name":"Khmer",
         "nativeName":"ភាសាខ្មែរ"
     },
@@ -319,7 +319,7 @@ var isoLangs = Object.freeze({
         "name":"Kikuyu, Gikuyu",
         "nativeName":"Gĩkũyũ"
     },
-    "RW":{
+    RW:{
         "name":"Kinyarwanda",
         "nativeName":"Ikinyarwanda"
     },
@@ -327,11 +327,11 @@ var isoLangs = Object.freeze({
         "name":"Kirghiz, Kyrgyz",
         "nativeName":"кыргыз тили"
     },
-    "KV":{
+    KV:{
         "name":"Komi",
         "nativeName":"коми кыв"
     },
-    "KG":{
+    KG:{
         "name":"Kongo",
         "nativeName":"KiKongo"
     },
@@ -359,15 +359,15 @@ var isoLangs = Object.freeze({
         "name":"Luganda",
         "nativeName":"Luganda"
     },
-    "LI":{
+    LI:{
         "name":"Limburgish, Limburgan, Limburger",
         "nativeName":"Limburgs"
     },
-    "LN":{
+    LN:{
         "name":"Lingala",
         "nativeName":"Lingála"
     },
-    "LO":{
+    LO:{
         "name":"Lao",
         "nativeName":"ພາສາລາວ"
     },
@@ -383,7 +383,7 @@ var isoLangs = Object.freeze({
         "name":"Latvian",
         "nativeName":"latviešu valoda"
     },
-    "GV":{
+    GV:{
         "name":"Manx",
         "nativeName":"Gaelg, Gailck"
     },
@@ -407,7 +407,7 @@ var isoLangs = Object.freeze({
         "name":"Maltese",
         "nativeName":"Malti"
     },
-    "MI":{
+    MI:{
         "name":"Māori",
         "nativeName":"te reo Māori"
     },
@@ -423,11 +423,11 @@ var isoLangs = Object.freeze({
         "name":"Mongolian",
         "nativeName":"монгол"
     },
-    "NA":{
+    NA:{
         "name":"Nauru",
         "nativeName":"Ekakairũ Naoero"
     },
-    "NV":{
+    NV:{
         "name":"Navajo, Navaho",
         "nativeName":"Diné bizaad, Dinékʼehǰí"
     },
@@ -479,7 +479,7 @@ var isoLangs = Object.freeze({
         "name":"Oromo",
         "nativeName":"Afaan Oromoo"
     },
-    "OR":{
+    OR:{
         "name":"Oriya",
         "nativeName":"ଓଡ଼ିଆ"
     },
@@ -491,7 +491,7 @@ var isoLangs = Object.freeze({
         "name":"Panjabi, Punjabi",
         "nativeName":"ਪੰਜਾਬੀ, پنجابی‎"
     },
-    "PI":{
+    PI:{
         "name":"Pāli",
         "nativeName":"पाऴि"
     },
@@ -503,7 +503,7 @@ var isoLangs = Object.freeze({
         "name":"Polish",
         "nativeName":"polski"
     },
-    "PS":{
+    PS:{
         "name":"Pashto, Pushto",
         "nativeName":"پښتو"
     },
@@ -535,7 +535,7 @@ var isoLangs = Object.freeze({
         "name":"Sanskrit (Saṁskṛta)",
         "nativeName":"संस्कृतम्"
     },
-    "SC":{
+    SC:{
         "name":"Sardinian",
         "nativeName":"sardu"
     },
@@ -543,7 +543,7 @@ var isoLangs = Object.freeze({
         "name":"Sindhi",
         "nativeName":"सिन्धी, سنڌي، سندھی‎"
     },
-    "SE":{
+    SE:{
         "name":"Northern Sami",
         "nativeName":"Davvisámegiella"
     },
@@ -563,7 +563,7 @@ var isoLangs = Object.freeze({
         "name":"Scottish Gaelic; Gaelic",
         "nativeName":"Gàidhlig"
     },
-    "SN":{
+    SN:{
         "name":"Shona",
         "nativeName":"chiShona"
     },
@@ -579,7 +579,7 @@ var isoLangs = Object.freeze({
         "name":"Slovene",
         "nativeName":"slovenščina"
     },
-    "SO":{
+    SO:{
         "name":"Somali",
         "nativeName":"Soomaaliga, af Soomaali"
     },
@@ -631,7 +631,7 @@ var isoLangs = Object.freeze({
         "name":"Tibetan Standard, Tibetan, Central",
         "nativeName":"བོད་ཡིག"
     },
-    "TK":{
+    TK:{
         "name":"Turkmen",
         "nativeName":"Türkmen, Түркмен"
     },
@@ -643,7 +643,7 @@ var isoLangs = Object.freeze({
         "name":"Tswana",
         "nativeName":"Setswana"
     },
-    "TO":{
+    TO:{
         "name":"Tonga (Tonga Islands)",
         "nativeName":"faka Tonga"
     },
@@ -663,11 +663,11 @@ var isoLangs = Object.freeze({
         "name":"Twi",
         "nativeName":"Twi"
     },
-    "TY":{
+    TY:{
         "name":"Tahitian",
         "nativeName":"Reo Tahiti"
     },
-    "UG":{
+    UG:{
         "name":"Uighur, Uyghur",
         "nativeName":"Uyƣurqə, ئۇيغۇرچە‎"
     },
@@ -703,7 +703,7 @@ var isoLangs = Object.freeze({
         "name":"Welsh",
         "nativeName":"Cymraeg"
     },
-    "WO":{
+    WO:{
         "name":"Wolof",
         "nativeName":"Wollof"
     },
