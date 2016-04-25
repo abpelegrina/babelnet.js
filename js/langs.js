@@ -1067,62 +1067,56 @@ var isoLangs = Object.freeze({
         "name":"Võro",
         "nativeName":""
     },
-    :{
-        "name":"",
+    PAG:{
+        "name":"Pangasinan",
         "nativeName":""
     },
-    :{
-        "name":"",
+    VLS:{
+        "name":"West Flemish",
         "nativeName":""
     },
-    :{
-        "name":"",
+    XMF:{
+        "name":"Mingrelian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    DIQ:{
+        "name":"Zazaki",
         "nativeName":""
     },
-    :{
-        "name":"",
+    ZEA:{
+        "name":"Zeelandic",
         "nativeName":""
     },
-    :{
-        "name":"",
+    CSB:{
+        "name":"Kashubian",
         "nativeName":""
     },
-    :{
-        "name":"",
+    CRH:{
+        "name":"Crimean Tatar",
         "nativeName":""
     },
-    :{
-        "name":"",
+    HAK:{
+        "name":"Hakka",
+        "nativeName":""
+    },
+    VEP:{
+        "name":"Vepsian",
+        "nativeName":""
+    },
+    ZH_CLASSICAL:{
+        "name":"Classical Chinese",
+        "nativeName":""
+    },
+    NRM:{
+        "name":"Norman",
+        "nativeName":""
+    },
+    UDM:{
+        "name":"Udmurt",
+        "nativeName":""
+    },
+    KOI:{
+        "name":"Komi-Permyak",
         "nativeName":""
     }
-,
-    :{
-        "name":"",
-        "nativeName":""
-    },
-    :{
-        "name":"",
-        "nativeName":""
-    },
-    :{
-        "name":"",
-        "nativeName":""
-    },
-    :{
-        "name":"",
-        "nativeName":""
-    },
-    :{
-        "name":"",
-        "nativeName":""
-    },
-    :{
-        "name":"",
-        "nativeName":""
-    }
-
 });
