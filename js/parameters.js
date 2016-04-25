@@ -40,13 +40,6 @@ var Source = Object.freeze({
                         WONEF : 'WONEF'
                     });
 
-/*Languages*/
-var Languages = Object.freeze({
-                        ES: 'ES', 
-                        EN: 'EN', 
-                        FR: 'FR'
-                    });
-
 
 /*Type of relations*/
 var TypeOfRelations = Object.freeze({
