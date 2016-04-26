@@ -209,6 +209,36 @@ function highlightDisambiguation(sentence, m){
     return highlighted.substring(1, highlighted.length-1);
 }
 
+
+function highlightDisambiguation2(sentence, m){
+
+    /*m.sort(function(a,b){
+        
+        var numWordsA = countWordsInString(a.synset);
+        var numWordsB = countWordsInString(b.synset);
+
+        if (numWordsA < numWordsB)
+            return 1;
+        else if (numWordsA > numWordsB)
+            return -1;
+        else 
+            return 0;
+    });
+
+    var highlighted = '#' + sentence + '#';
+    $.each(m, function(key, val) {
+        var fragments = highlighted.split(val.synset);
+
+        highlighted = fragments[0];
+        for (var i = 1; i<fragments.length; i++){
+            highlighted += '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i];
+        }
+    });*/
+    var taggedSentence = sentence.replace(/\b(\w+)\b/g, "<span class='matchedWord'>$1</span>");
+
+    return taggedSentence;
+}
+
 /**
  * 
  * @param babelfy
@@ -240,10 +270,15 @@ function showDisambiguation(babelfy,text, lang, container){
             });
 
 
-            var highlightedSentence = highlightDisambiguation(text, matches);
-
-            $('<pre>',{html:highlightedSentence}).appendTo(container);
+            var highlightedSentence = highlightDisambiguation2(text, matches);
             
+
+            $(highlightedSentence).appendTo(container);
+
+
+
+            
+            /*
             $.each(matches, function(key, val) {
                 babelfy.getSynset(val.id,lang).done(function(response){
                     var id = response['senses'][0]['synsetID']['id'];
@@ -263,6 +298,8 @@ function showDisambiguation(babelfy,text, lang, container){
                     }
                 });
             });
+
+            */
         });
     }
     else 
@@ -297,7 +334,7 @@ $(document).ready(function (){
         showEdgesForTerm(babel, word, lang, $('#results'));
     });
 
-    
+
     $('#translate').click(function(){  
 
         var to = $('#to').val();
@@ -327,5 +364,11 @@ $(document).ready(function (){
         var text = $('#term').val();
         var lang = $('#lang').val();
         showDisambiguation(babel,text,lang, $('#results'));
+    });
+
+
+    $('#results span').on("click",function(){        
+        
+        console.log('hello!');
     });
 });

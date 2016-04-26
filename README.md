@@ -9,7 +9,7 @@ The basic javascript wrapper for the Bebelnet and Babelfy APIs can be found in j
 
 The files js/parameters.js and js/langs.js include inmutable objects for some types used in the parameters in the API calls (such as Language or POS).
 
-You can find examples about how to use the wrapper in js/example.js (plus example.html and css/style.css). For this examples to work you need to edit the file config.example.json and replace the placeholder key value with your own API key and rename the file to config.json.
+You can find examples about how to use the wrapper in js/example.js (plus example.html and css/style.css). For this examples to work you need to edit the file config.example.json and replace the placeholder key value with your own API key and rename the file to config.jsono.
 
 
 
