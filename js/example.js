@@ -1,5 +1,5 @@
-/*
- * This file contains a few examples of how to use the wrapper.
+/**
+ * @file This file contains a few examples of how to use the wrapper.
  * Please note that to use this example you need an API key provided by BabelNet
  */
 

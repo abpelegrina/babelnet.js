@@ -1,3 +1,8 @@
+/**
+ * @file This file contains Langs, an inmutable objects that represents all the valid languages in the BabelNet and Babelfy APIs
+ */
+
+/** Available languages in BabelNet */
 var Langs = Object.freeze({
     AB:{
         "name":"Abkhaz",

@@ -1,8 +1,8 @@
 /**
- *
+ * @file This file contains a set of inmutable objects that represents all the valid values for different parameters in the API calls for BabelNet and Babelfy
  */
 
-/* PART OF SPEECH  (POS) possible values */
+/** PART OF SPEECH  (POS) possible values */
 var PartOfSpeech = Object.freeze({
                         ADJECTIVE: 'ADJECTIVE', 
                         ADVERB: 'ADVERB', 
@@ -16,7 +16,7 @@ var PartOfSpeech = Object.freeze({
                         VERB : 'VERB'
                     });
 
-/* Sources */
+/** Available sources in BabelNet */
 var Source = Object.freeze({
                         BABELNET: 'BABELNET', 
                         GEONM: 'GEONM', 
@@ -41,7 +41,7 @@ var Source = Object.freeze({
                     });
 
 
-/*Type of relations*/
+/** Type of relations*/
 var TypeOfRelations = Object.freeze({
                         HYPERNYM: 'HYPERNYM', 
                         HYPONYM: 'HYPONYM', 
@@ -50,15 +50,15 @@ var TypeOfRelations = Object.freeze({
                         OTHER: 'OTHER', 
                     });
 
-/*
+/**
 Parameter to obtain as a result of the disambiguation procedure a scored list of candidates or only the top ranked one. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.ScoredCandidates.html
 */
 var ScoredCandidates = Object.freeze({
-                        ALL: 'ALL', 
+                        ALL: 'ALL',
                         TOP: 'TOP'
                     });
-/*
+/**
 Part of Speech tagging option. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.PosTaggingOptions.html
 */
@@ -69,7 +69,7 @@ var PosTaggingOptions = Object.freeze({
                         STANDARD : 'STANDARD'
                   });
 
-/*
+/**
 Wether to enable or disable the most common sense backoff strategy. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.MCS.html
 */
@@ -79,7 +79,7 @@ var MCS = Object.freeze({
                         OFF : 'OFF'
                   });
 
-/*
+/**
 Parameter to select the candidate extraction strategy.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.MatchingType.html#EXACT_MATCHING
 */
@@ -88,7 +88,7 @@ var MatchingType = Object.freeze({
                         PARTIAL_MATCHING:'PARTIAL_MATCHING'
                   });
 
-/*
+/**
 Restrict the disambiguated entries to only WordNet, Wikipedia or BabelNet.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationResource.html
 */
@@ -98,7 +98,7 @@ var SemanticAnnotationResource = Object.freeze({
                         WN : 'WN'
                   });
 
-/*
+/**
 Restrict the disambiguated entries to only named entities, word senses or both.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationType.html
 */
