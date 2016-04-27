@@ -3,31 +3,39 @@
  * Please note that to use this example you need an API key provided by BabelNet
  */
 
-/** Show and error message when an invalid language is provided */
-function showErrorLang(lang, container){
-    $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(container);
+
+
+function BabelNetExample(bb, ctnr){
+    this.babel = bb;
+    this.container = ctnr;
+}
+
+
+/** 
+Show an error message when an invalid language is provided 
+*/
+BabelNetExample.prototype.showErrorLang = function(lang){
+    $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(this.container);
 }
 
 /**
  * Shows the glosses (definitions) for a word in a certain language
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} word  - The word you want to search for
  * @param {string} lang  - The language of the word
- * @param {JQueryObject} container  - the html element where we want to show the glosses
  */
-function showGlossesForTerm(babel, word, lang, container){
-    container.html('');
+BabelNetExample.prototype.showGlossesForTerm = function(word, lang){
+    this.container.html('');
 
     if(lang in Langs){
 
-        $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(container);
+        $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(this.container);
 
-        babel.getSynsetIds(word,lang).done(function(response){
+        this.babel.getSynsetIds(word,lang).done(function(response){
             $.each(response, function(key, val) {
                
-                babel.getSynset(val['id'],lang).done(function(response){
+                this.babel.getSynset(val['id'],lang).done(function(response){
 
-                    $('<h3>', {html:val['id']}).appendTo(container);
+                    $('<h3>', {html:val['id']}).appendTo(this.container);
 
                     if (Object.keys(response['senses']).length > 0){
     	                var entry = '';
@@ -36,8 +44,8 @@ function showGlossesForTerm(babel, word, lang, container){
     	                })
     	
     	                entry = entry.replace(/,\s*$/, "");
-    	                $('<em>',{html:entry}).appendTo(container);
-    	                $('<br>').appendTo(container);
+    	                $('<em>',{html:entry}).appendTo(this.container);
+    	                $('<br>').appendTo(this.container);
                     }
 
                     if (Object.keys(response['glosses']).length > 0){
@@ -46,45 +54,43 @@ function showGlossesForTerm(babel, word, lang, container){
     	                    entry += "Gloss: " + value['gloss'] + ' (' +value['language'] + ")<br/>";
     	                    
     	                })
-    	                $('<div>', {html:entry}).appendTo(container);
-    	                $('<hr>').appendTo(container);
+    	                $('<div>', {html:entry}).appendTo(this.container);
+    	                $('<hr>').appendTo(this.container);
                     }
                 });
             });
         });
     }
     else 
-        showErrorLang(lang, container);        
+        showErrorLang(lang);        
 }
 
 
 /**
  * Shows the translations for a word in a certain language to another language
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} word  - The word you want to search for
  * @param {string} from  - The language of the word
  * @param {string} to  - The language we want to translate the word to
- * @param {JQueryObject} container  - the html element where we want to show the translations
  */
-function showTranslationsForTerm(babel, word, from, to, container){
-    container.html('');
+BabelNetExample.prototype.showTranslationsForTerm = function(word, from, to){
+    this.container.html('');
 
     if(from in Langs && to in Langs){
 
-        $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(container);
+        $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(this.container);
 
-        babel.getSynsetIds(word,from).done(function(response){
+        this.babel.getSynsetIds(word,from).done(function(response){
             $.each(response, function(key, val) {
-            	babel.getSynset(val['id'],to).done(function(response){
+            	this.babel.getSynset(val['id'],to).done(function(response){
             		if (Object.keys(response['senses']).length > 0){
-    	        		 $('<h3>', {html:val['id']}).appendTo(container);
+    	        		 $('<h3>', {html:val['id']}).appendTo(this.container);
     	                 var entry = '';
     	                 $.each(response['senses'], function(key,value){
     	                     entry += value['lemma'] + ', ';
     	                 })
     	                 entry = entry.replace(/,\s*$/, "");
-    	                 $('<em>',{html:entry}).appendTo(container);
-    	                 $('<hr>').appendTo(container);
+    	                 $('<em>',{html:entry}).appendTo(this.container);
+    	                 $('<hr>').appendTo(this.container);
                      }
             	});
             });
@@ -92,19 +98,17 @@ function showTranslationsForTerm(babel, word, from, to, container){
         });
     }
     else 
-        showErrorLang(to+' or ' + from, container);
+        showErrorLang(to+' or ' + from);
 }
 
 /**
  * Shows the edges for a given sysnset 
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} id  - ID of the synset
- * @param {JQueryObject} container  - the html element where we want to show the edges for the synset
  */
-function showEdgesForSynset(babel, id, container){
-    babel.getEdges(id).done(function(response){
+BabelNetExample.prototype.showEdgesForSynset = function(id){
+    this.babel.getEdges(id).done(function(response){
         if (response.length > 0) {
-            $('<h3>Edges for the synset: "'+ id +'"</h3>').appendTo(container);
+            $('<h3>Edges for the synset: "'+ id +'"</h3>').appendTo(this.container);
             
             $.each(response, function(key, val) {
                 var pointer = val['pointer'];
@@ -117,7 +121,7 @@ function showEdgesForSynset(babel, id, container){
                         + "<br/>Target: " + val['target']
                         + "<br/>Relation: " + relation
                         + "<br/>Relation group: " + group + "<br/><br/>";
-                    $('<div>', {html:entry}).appendTo(container);
+                    $('<div>', {html:entry}).appendTo(this.container);
                 }
             });
         }
@@ -126,65 +130,59 @@ function showEdgesForSynset(babel, id, container){
 
 /**
  * Shows the edges for a given word 
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} word  - the word
  * @param {string} from  - The language of the word
- * @param {JQueryObject} container  - the html element where we want to show the edges for the word
  */
-function showEdgesForTerm(babel, word, lang,container){
-    container.html('');
+BabelNetExample.prototype.function showEdgesForTerm = function(word, lang){
+    this.container.html('');
     if(lang in Langs){
-        babel.getSynsetIds(word,lang).done(function(response){
+        this.babel.getSynsetIds(word,lang).done(function(response){
              $.each(response, function(key, val) {
-                 showEdgesForSynset(babel, val['id'], container);
+                 showEdgesForSynset(val['id']);
              });
         });
     }
     else
-       showErrorLang(lang, container);
+       showErrorLang(lang);
 }
 
 /**
  * Shows the compound words for a given synset
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} id  - ID of the synset
  * @param {string} from  - The language of the compund words
- * @param {JQueryObject} container  - the html element where we want to show the compound words
  */
-function showCompoudWordsForSynset(babel, id, lang, container){
+BabelNetExample.prototype.showCompoudWordsForSynset = function(id, lang){
 
-    babel.getSynset(id,lang).done(function(response){
+    this.babel.getSynset(id,lang).done(function(response){
         var entry = new Array();
         $.each(response['lnToCompound'], function(key,value){
             entry.push.apply(entry,value);
         })
         entryStr = entry.join(', ');
         if(entryStr != ''){
-            $('<h3>Compound words for the synset: "'+id+'"</h3>').appendTo(container);
-            $('<em>',{html:entryStr}).appendTo(container);
-            $('<br>').appendTo(container);
+            $('<h3>Compound words for the synset: "'+id+'"</h3>').appendTo(this.container);
+            $('<em>',{html:entryStr}).appendTo(this.container);
+            $('<br>').appendTo(this.container);
         }
     });
 }
 
 /**
  * Shows the compound words for a given synset
- * @param {BabelNet} babel  - a BabelNet object
  * @param {string} word  - the word
  * @param {string} from  - The language of the compund words
- * @param {JQueryObject} container  - the html element where we want to show the compound words
  */
-function showCompoundWordsForTerm(babel, word, lang, container){
-    container.html('');
+BabelNetExample.prototype.showCompoundWordsForTerm = function(word, lang){
+    this.container.html('');
     if(lang in Langs){
-        babel.getSynsetIds(word,lang).done(function(response){
+        this.babel.getSynsetIds(word,lang).done(function(response){
              $.each(response, function(key, val) {
-                 showCompoudWordsForSynset(babel, val['id'], lang, container);
+                 showCompoudWordsForSynset(val['id'], lang);
              });
         });
     }
     else
-        showErrorLang(lang, container);
+        showErrorLang(lang);
 }
 
 /**
@@ -230,17 +228,15 @@ function highlightDisambiguation(sentence, m){
 
 /**
  * Disambiguates a text using the Babelfy API call disambiguate
- * @param {BabelNet} babelfy - A BabelNet object
  * @param {string} text - the text to disambiguate
  * @param {string} lang - the language of the text
- * @param {JQueryObject} container - the html element where we want to show the disambiguation
  */
-function showDisambiguation(babelfy,text, lang, container){
-    container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
+function showDisambiguation(text, lang){
+    this.container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
 
     if(lang in Langs){
 
-        babelfy.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
+        babel.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
 
             var matches = [];
 
@@ -262,10 +258,10 @@ function showDisambiguation(babelfy,text, lang, container){
             var highlightedSentence = highlightDisambiguation2(text, matches);
             
 
-            $(highlightedSentence).appendTo(container);
+            $(highlightedSentence).appendTo(this.container);
 
             $.each(matches, function(key, val) {
-                babelfy.getSynset(val.id,lang).done(function(response){
+                babel.getSynset(val.id,lang).done(function(response){
                     var id = response['senses'][0]['synsetID']['id'];
 
                     var gloss = '';
@@ -279,25 +275,26 @@ function showDisambiguation(babelfy,text, lang, container){
                         $(document.getElementById(val.id)).prop('title', gloss);
 
                         var entry = val.synset + ': ' + gloss;
-                        $('<p>',{html:entry}).appendTo(container);
+                        $('<p>',{html:entry}).appendTo(this.container);
                     }
                 });
             });
         });
     }
     else 
-        showErrorLang(lang, container); 
+        showErrorLang(lang); 
 }
 
 //Setup the JQuery components
 $(document).ready(function (){
 	
 	var babel = new BabelNet();
-
+    var  example = new BabelNetExample(babel, $('#results'));
 
     $.getJSON('config.json')
         .done(function(response){
             babel.KEY = response['key'];
+
         })
         .fail(function(){
             console.log('uh-oh');
@@ -307,14 +304,14 @@ $(document).ready(function (){
     $('#search').click(function(){
         var word = $('#term').val();        
         var lang = $('#lang').val();
-        showGlossesForTerm(babel,word,lang, $('#results'));
+        example.showGlossesForTerm(word,lang);
     });
 
     $('#edges').click(function(){        
         
         var word = $('#term').val();        
         var lang = $('#lang').val();
-        showEdgesForTerm(babel, word, lang, $('#results'));
+        example.showEdgesForTerm(word, lang);
     });
 
 
@@ -324,7 +321,7 @@ $(document).ready(function (){
         var from = $('#lang').val();
 
         if (to != from)
-    	   showTranslationsForTerm(babel, $('#term').val(), from, to, $('#results'));
+    	   example.showTranslationsForTerm($('#term').val(), from, to);
         else
             alert('The source and target language are both the same!!!');
     });
@@ -332,25 +329,13 @@ $(document).ready(function (){
     $('#compoundWords').click(function(){        
         var word = $('#term').val();        
         var lang = $('#lang').val();
-        showCompoundWordsForTerm(babel, word, lang, $('#results'));
+        example.showCompoundWordsForTerm(word, lang);
     });
-
-    $('#term').on('keypress', function (event) {
-         if(event.which === 13){
-            var lang = $('#lang').val();
-            showGlossesForTerm(babel,$(this).val(),lang, $('#results'));
-         }
-   });
    
     $('#disambiguate').click(function(){        
 
         var text = $('#term').val();
         var lang = $('#lang').val();
-        showDisambiguation(babel,text,lang, $('#results'));
+        example.showDisambiguation(text,lang);
     });
-
-
-    /*$('#results').on("mouseover", 'span',function(){  
-        console.log($( this ).text());
-    });*/
 });
