@@ -3,17 +3,20 @@
  * Please note that to use this example you need an API key provided by BabelNet
  */
 
-
+/** Show and error message when an invalid language is provided */
 function showErrorLang(lang, container){
     $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(container);
 }
 
 /**
- * 
+ * Shows the glosses (definitions) for a word in a certain language
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} word  - The word you want to search for
+ * @param {string} lang  - The language of the word
+ * @param {JQueryObject} container  - the html element where we want to show the glosses
  */
 function showGlossesForTerm(babel, word, lang, container){
     container.html('');
-
 
     if(lang in Langs){
 
@@ -56,12 +59,12 @@ function showGlossesForTerm(babel, word, lang, container){
 
 
 /**
- * 
- * @param babel
- * @param word
- * @param from
- * @param to
- * @param container
+ * Shows the translations for a word in a certain language to another language
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} word  - The word you want to search for
+ * @param {string} from  - The language of the word
+ * @param {string} to  - The language we want to translate the word to
+ * @param {JQueryObject} container  - the html element where we want to show the translations
  */
 function showTranslationsForTerm(babel, word, from, to, container){
     container.html('');
@@ -93,10 +96,10 @@ function showTranslationsForTerm(babel, word, from, to, container){
 }
 
 /**
- * 
- * @param babel
- * @param id
- * @param container
+ * Shows the edges for a given sysnset 
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} id  - ID of the synset
+ * @param {JQueryObject} container  - the html element where we want to show the edges for the synset
  */
 function showEdgesForSynset(babel, id, container){
     babel.getEdges(id).done(function(response){
@@ -122,8 +125,12 @@ function showEdgesForSynset(babel, id, container){
 }
 
 /**
-*
-*/
+ * Shows the edges for a given word 
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} word  - the word
+ * @param {string} from  - The language of the word
+ * @param {JQueryObject} container  - the html element where we want to show the edges for the word
+ */
 function showEdgesForTerm(babel, word, lang,container){
     container.html('');
     if(lang in Langs){
@@ -138,11 +145,11 @@ function showEdgesForTerm(babel, word, lang,container){
 }
 
 /**
- * 
- * @param babel
- * @param id
- * @param lang
- * @param container
+ * Shows the compound words for a given synset
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} id  - ID of the synset
+ * @param {string} from  - The language of the compund words
+ * @param {JQueryObject} container  - the html element where we want to show the compound words
  */
 function showCompoudWordsForSynset(babel, id, lang, container){
 
@@ -161,8 +168,12 @@ function showCompoudWordsForSynset(babel, id, lang, container){
 }
 
 /**
-*
-*/
+ * Shows the compound words for a given synset
+ * @param {BabelNet} babel  - a BabelNet object
+ * @param {string} word  - the word
+ * @param {string} from  - The language of the compund words
+ * @param {JQueryObject} container  - the html element where we want to show the compound words
+ */
 function showCompoundWordsForTerm(babel, word, lang, container){
     container.html('');
     if(lang in Langs){
@@ -176,11 +187,19 @@ function showCompoundWordsForTerm(babel, word, lang, container){
         showErrorLang(lang, container);
 }
 
+/**
+ * this function counts the number of words in a string
+ * @param {string} str - the string
+ */
 function countWordsInString(str){
     return str.split(' ').length;
 }
 
-
+/**
+ * This functions highlights a text with span html elements according to set of matches
+ * @param {string} sentence - text to highlight
+ * @param {array} m - array with all the matching texts
+ */
 function highlightDisambiguation(sentence, m){
 
     m.sort(function(a,b){
@@ -209,42 +228,12 @@ function highlightDisambiguation(sentence, m){
     return highlighted.substring(1, highlighted.length-1);
 }
 
-
-function highlightDisambiguation2(sentence, m){
-
-    /*m.sort(function(a,b){
-        
-        var numWordsA = countWordsInString(a.synset);
-        var numWordsB = countWordsInString(b.synset);
-
-        if (numWordsA < numWordsB)
-            return 1;
-        else if (numWordsA > numWordsB)
-            return -1;
-        else 
-            return 0;
-    });
-
-    var highlighted = '#' + sentence + '#';
-    $.each(m, function(key, val) {
-        var fragments = highlighted.split(val.synset);
-
-        highlighted = fragments[0];
-        for (var i = 1; i<fragments.length; i++){
-            highlighted += '<span id="'+val.id+'" class="highlight">' + val.synset + '</span>' + fragments[i];
-        }
-    });*/
-    var taggedSentence = sentence.replace(/\b(\w+)\b/g, "<span class='matchedWord'>$1</span>");
-
-    return taggedSentence;
-}
-
 /**
- * 
- * @param babelfy
- * @param text
- * @param lang
- * @param container
+ * Disambiguates a text using the Babelfy API call disambiguate
+ * @param {BabelNet} babelfy - A BabelNet object
+ * @param {string} text - the text to disambiguate
+ * @param {string} lang - the language of the text
+ * @param {JQueryObject} container - the html element where we want to show the disambiguation
  */
 function showDisambiguation(babelfy,text, lang, container){
     container.html('<h2>Disambiguation for sentence: "'+text+'"</h2>');
@@ -275,10 +264,6 @@ function showDisambiguation(babelfy,text, lang, container){
 
             $(highlightedSentence).appendTo(container);
 
-
-
-            
-            /*
             $.each(matches, function(key, val) {
                 babelfy.getSynset(val.id,lang).done(function(response){
                     var id = response['senses'][0]['synsetID']['id'];
@@ -298,8 +283,6 @@ function showDisambiguation(babelfy,text, lang, container){
                     }
                 });
             });
-
-            */
         });
     }
     else 
@@ -367,8 +350,7 @@ $(document).ready(function (){
     });
 
 
-    $('#results span').on("click",function(){        
-        
-        console.log('hello!');
-    });
+    /*$('#results').on("mouseover", 'span',function(){  
+        console.log($( this ).text());
+    });*/
 });

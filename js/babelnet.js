@@ -1,5 +1,6 @@
 /**
- * 
+ * Class that wraps the BabelNet and Babelfy APIs
+ * @constructor
  */
 function BabelNet(){
 	this.KEY = '';
@@ -13,8 +14,7 @@ function BabelNet(){
     this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
 };
 
-/**
- *
+/** Get the current version of the BabelNet API 
 */
 BabelNet.prototype.getVersion = function(){
     var params = {        
@@ -25,7 +25,13 @@ BabelNet.prototype.getVersion = function(){
 
 
 /**
- * 
+ * Retrieve the IDs of the Babel synsets (concepts) denoted by a given word
+ * @param {string} word  - The word you want to search for
+ * @param {string} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {string} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ * @param {string} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {string} normalizer  - Enables normalized search
  */
 BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
     var params = {
@@ -53,8 +59,10 @@ BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', 
 
 
 /**
- * 
-*/
+ * Retrieve the information of a given synset
+ * @param {string} id  - The ID of the synset
+ * @param {string} lang  - The languages in which the data are to be retrieved.
+ */
 BabelNet.prototype.getSynset = function(id,lang){
     var params = {
         'id'  : id,
@@ -66,7 +74,13 @@ BabelNet.prototype.getSynset = function(id,lang){
 
 
 /**
- * 
+ * Retrieve the senses of a given word
+ * @param {string} word  - The word you want to search for
+ * @param {string} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {string} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ * @param {string} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {string} normalizer  - Enables normalized search
  */
 BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=false){
     var params = {
@@ -94,7 +108,12 @@ BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', sou
 
 
 /**
- * 
+ * Retrieve a list of BabelNet IDs given a resource identifier
+ * @param {string} id  - The word you want to search for
+ * @param {string} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {string} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {string} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
  */
 BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS=''){
     var params = {
@@ -119,7 +138,8 @@ BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filte
 
 
 /**
- * 
+ * Retrieve edges of a given BabelNet synset
+ * @param {string} id  - The ID of the synset
  */
 BabelNet.prototype.getEdges = function(id){
     var params = {
@@ -131,8 +151,22 @@ BabelNet.prototype.getEdges = function(id){
 }
 
 /**
- * 
- */
+Disambiguate a text
+ * @param {string} text  - he text you want to disambiguate
+ * @param {string} lang  - The language of the text
+ * @param {string} annType  - It allows to restrict the disambiguated entries to only named entities, word senses or both
+ * @param {string} annRes  - It allows to restrict the disambiguated entries to only WordNet, Wikipedia or BabelNet.
+
+ * @param {double} th  - the cutting threshold.
+ * @param {string} normalizer  - Enables normalized search
+ * @param {string} match  - Select the candidate extraction strategy
+
+ * @param {string} mcs  - enable or disable the most common sense backoff strategy
+ * @param {boolean} dens  -Enable or disable the densest subgraph heuristic during the disambiguation pipeline.
+ * @param {string} cands  - Wether you get a scored list of candidates or only the top ranked one
+ * @param {string} posTag  -  Select the tokenization and pos-tagging pipeline for your input text
+ * @param {boolean} extAIDA  - Extend the candidates sets with the aida_means relations
+*/
 BabelNet.prototype.disambiguate = function(text, lang, annType='', annRes='', th='', match='', mcs='', dens='', cands='', posTag='', extAIDA=''){
     var params = {
         'text' : text,
