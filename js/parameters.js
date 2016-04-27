@@ -3,11 +3,10 @@
  */
 
 /**
- * Class that wraps the valid values for some of parameters in the BabelNet and Babelfy API calls
+ * Class that wraps the types of some of parameters in the BabelNet and Babelfy API calls
  * @constructor
  */
 function BabelNetParams () {
-     this.a = '';
 };
 
 /** PART OF SPEECH  (POS) possible values
