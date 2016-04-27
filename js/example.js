@@ -4,7 +4,10 @@
  */
 
 
-
+/**
+ * This class serves as an example on how to use the BabelNet class
+ * @constructor
+ */
 function BabelNetExample(bb, ctnr){
     this.babel = bb;
     this.container = ctnr;
@@ -18,11 +21,6 @@ BabelNetExample.prototype.showErrorLang = function(lang){
     $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(this.container);
 }
 
-BabelNetExample.prototype.showGlossForSynset = function(id,lang){
-
-}
-
-
 /**
  * Shows the glosses (definitions) for a word in a certain language
  * @param {string} word  - The word you want to search for
@@ -34,7 +32,7 @@ BabelNetExample.prototype.showGlossesForTerm = function(word, lang){
     var babel = this.babel;
     var container = this.container;
 
-    if(lang in Langs){
+    if(lang in BabelNetParams.Langs){
 
         $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(this.container);
 
@@ -86,7 +84,7 @@ BabelNetExample.prototype.showTranslationsForTerm = function(word, from, to){
     var babel = this.babel;
     var container = this.container;
 
-    if(from in Langs && to in Langs){
+    if(from in BabelNetParams.Langs && to in BabelNetParams.Langs){
 
         $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(this.container);
 
@@ -131,7 +129,7 @@ BabelNetExample.prototype.showEdgesForSynset = function(id){
                 var group = pointer['relationGroup'];
 
                 //Show only hypernym, hyponym and meronym relations
-                if (  group == TypeOfRelations.HYPERNYM || group == TypeOfRelations.HYPONYM || group == TypeOfRelations.MERONYM) {
+                if (  group == BabelNetParams.TypeOfRelations.HYPERNYM || group == BabelNetParams.TypeOfRelations.HYPONYM || group == BabelNetParams.TypeOfRelations.MERONYM) {
                     var entry = "Language: " + val['language']
                         + "<br/>Target: " + val['target']
                         + "<br/>Relation: " + relation
@@ -151,7 +149,7 @@ BabelNetExample.prototype.showEdgesForSynset = function(id){
 BabelNetExample.prototype.showEdgesForTerm = function(word, lang){
     this.container.html('');
     var example = this;
-    if(lang in Langs){
+    if(lang in BabelNetParams.Langs){
         this.babel.getSynsetIds(word,lang).done(function(response){
              $.each(response, function(key, val) {
                  example.showEdgesForSynset(val['id']);
@@ -196,7 +194,7 @@ BabelNetExample.prototype.showCompoundWordsForTerm = function(word, lang){
     var babel = this.babel;
     var container = this.container;
     var example = this;
-    if(lang in Langs){
+    if(lang in BabelNetParams.Langs){
         babel.getSynsetIds(word,lang).done(function(response){
              $.each(response, function(key, val) {
                  example.showCompoudWordsForSynset(val['id'], lang);
@@ -210,13 +208,14 @@ BabelNetExample.prototype.showCompoundWordsForTerm = function(word, lang){
 /**
  * this function counts the number of words in a string
  * @param {string} str - the string
+ @private
  */
 function countWordsInString(str){
     return str.split(' ').length;
 }
 
 /**
- *
+ * @private
  */
 BabelNetExample.prototype.compareNumberofWords = function(a,b){        
     var numWordsA = countWordsInString(a.synset);
@@ -265,7 +264,7 @@ BabelNetExample.prototype.showDisambiguation = function(text, lang){
     var container = this.container;
     var example = this;
 
-    if(lang in Langs){
+    if(lang in BabelNetParams.Langs){
 
         babel.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
 

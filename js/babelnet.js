@@ -44,10 +44,10 @@ BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', 
         'key' : this.KEY
     };
 
-    if (source in Source)
+    if (source in BabelNetParams.Source)
         params['source'] = source;
 
-    if(POS in PartOfSpeech)
+    if(POS in BabelNetParams.PartOfSpeech)
         params['POS'] = POS;
 
     var url = this.baseURL + this.getSynsetIdsURL + "?";
@@ -93,10 +93,10 @@ BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', sou
         'key' : this.KEY
     };
 
-    if (source in Source)
+    if (source in BabelNetParams.Source)
         params['source'] = source;
 
-    if(POS in PartOfSpeech)
+    if(POS in BabelNetParams.PartOfSpeech)
         params['POS'] = POS;
 
     var url = this.baseURL + this.getSensesURL + "?";
@@ -126,8 +126,8 @@ BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filte
         'source' : source
     };
 
-    if (source == Source.WIKIQU || source==Source.WIKI){
-        if(POS in PartOfSpeech)
+    if (source == BabelNetParams.Source.WIKIQU || sBabelNetParams.ource==Source.WIKI){
+        if(POS in BabelNetParams.PartOfSpeech)
             params['POS'] = POS;
         params['lang'] = lang;
     }
@@ -175,28 +175,28 @@ BabelNet.prototype.disambiguate = function(text, lang, annType='', annRes='', th
         'key'  : this.KEY
     };
 
-    if (annType in SemanticAnnotationType)
+    if (annType in BabelNetParams.SemanticAnnotationType)
         params['annType'] = annType;
 
-    if (annRes in SemanticAnnotationResource)
+    if (annRes in BabelNetParams.SemanticAnnotationResource)
         params['annRes'] = annRes;
 
     if ($.isNumeric(th))
         params['th'] = th;
 
-    if(match in MatchingType)
+    if(match in BabelNetParams.MatchingType)
         params['match'] = match;
 
-    if(mcs in MCS)
+    if(mcs in BabelNetParams.MCS)
         params['mcs'] = mcs;
 
     if(typeof(dens) === "boolean")
         params['dens']= dens;
 
-    if (cands in ScoredCandidates)
+    if (cands in BabelNetParams.ScoredCandidates)
         params['cands'] = cands;
 
-    if (posTag in PosTaggingOptions)
+    if (posTag in BabelNetParams.PosTaggingOptions)
         params['posTag'] = posTag;
 
     if(typeof(extAIDA) === "boolean")

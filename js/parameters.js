@@ -2,8 +2,17 @@
  * @file This file contains a set of inmutable objects that represents all the valid values for different parameters in the API calls for BabelNet and Babelfy
  */
 
-/** PART OF SPEECH  (POS) possible values */
-var PartOfSpeech = Object.freeze({
+/**
+ * Class that wraps the valid values for some of parameters in the BabelNet and Babelfy API calls
+ * @constructor
+ */
+function BabelNetParams () {
+     this.a = '';
+};
+
+/** PART OF SPEECH  (POS) possible values
+@readonly */
+BabelNetParams.PartOfSpeech = Object.freeze({
                         ADJECTIVE: 'ADJECTIVE', 
                         ADVERB: 'ADVERB', 
                         ARTICLE: 'ARTICLE', 
@@ -16,8 +25,9 @@ var PartOfSpeech = Object.freeze({
                         VERB : 'VERB'
                     });
 
-/** Available sources in BabelNet */
-var Source = Object.freeze({
+/** Available sources in BabelNet 
+@readonly*/
+BabelNetParams.Source = Object.freeze({
                         BABELNET: 'BABELNET', 
                         GEONM: 'GEONM', 
                         IWN: 'IWN', 
@@ -41,8 +51,9 @@ var Source = Object.freeze({
                     });
 
 
-/** Type of relations*/
-var TypeOfRelations = Object.freeze({
+/** Type of relations
+@readonly */
+BabelNetParams.TypeOfRelations = Object.freeze({
                         HYPERNYM: 'HYPERNYM', 
                         HYPONYM: 'HYPONYM', 
                         MERONYM: 'MERONYM', 
@@ -53,16 +64,18 @@ var TypeOfRelations = Object.freeze({
 /**
 Parameter to obtain as a result of the disambiguation procedure a scored list of candidates or only the top ranked one. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.ScoredCandidates.html
+@readonly 
 */
-var ScoredCandidates = Object.freeze({
+BabelNetParams.ScoredCandidates = Object.freeze({
                         ALL: 'ALL',
                         TOP: 'TOP'
                     });
 /**
 Part of Speech tagging option. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.PosTaggingOptions.html
+@readonly 
 */
-var PosTaggingOptions = Object.freeze({
+BabelNetParams.PosTaggingOptions = Object.freeze({
                         CHAR_BASED_TOKENIZATION_ALL_NOUN : 'CHAR_BASED_TOKENIZATION_ALL_NOUN',
                         INPUT_FRAGMENTS_AS_NOUNS : 'INPUT_FRAGMENTS_AS_NOUNS',
                         NOMINALIZE_ADJECTIVES : 'NOMINALIZE_ADJECTIVES',
@@ -72,8 +85,9 @@ var PosTaggingOptions = Object.freeze({
 /**
 Wether to enable or disable the most common sense backoff strategy. 
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.MCS.html
+@readonly
 */
-var MCS = Object.freeze({
+BabelNetParams.MCS = Object.freeze({
                         ON_WITH_STOPWORDS : "ON_WITH_STOPWORDS",
                         ON : 'ON',
                         OFF : 'OFF'
@@ -82,8 +96,9 @@ var MCS = Object.freeze({
 /**
 Parameter to select the candidate extraction strategy.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.MatchingType.html#EXACT_MATCHING
+@readonly
 */
-var MatchingType = Object.freeze({
+BabelNetParams.MatchingType = Object.freeze({
                         EXACT_MATCHING:'EXACT_MATCHING',
                         PARTIAL_MATCHING:'PARTIAL_MATCHING'
                   });
@@ -91,8 +106,9 @@ var MatchingType = Object.freeze({
 /**
 Restrict the disambiguated entries to only WordNet, Wikipedia or BabelNet.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationResource.html
+@readonly
 */
-var SemanticAnnotationResource = Object.freeze({
+BabelNetParams.SemanticAnnotationResource = Object.freeze({
                         BN : 'BN',
                         WIKI :'WIKI',
                         WN : 'WN'
@@ -101,8 +117,9 @@ var SemanticAnnotationResource = Object.freeze({
 /**
 Restrict the disambiguated entries to only named entities, word senses or both.
 See https://babelfy.io/javadoc/it/uniroma1/lcl/babelfy/commons/BabelfyParameters.SemanticAnnotationType.html
+@readonly
 */
-var SemanticAnnotationType = Object.freeze({
+BabelNetParams.SemanticAnnotationType = Object.freeze({
                         ALL : 'ALL',
                         CONCEPTS : 'CONCEPTS',
                         NAMED_ENTITIES : 'NAMED_ENTITIES'
