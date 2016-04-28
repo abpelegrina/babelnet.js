@@ -36,6 +36,7 @@ BabelNet.prototype.getVersion = function(){
  * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
  * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
  * @param {boolean} normalizer  - Enables normalized search
+ * @return {jqXHR} The jqXHR objects returned by the API call
  */
 BabelNet.prototype.getSynsetIds = function (word, langs, filterLangs=[], POS='', source='', normalizer=false){
     
@@ -73,6 +74,7 @@ BabelNet.prototype.getSynsetIds = function (word, langs, filterLangs=[], POS='',
  * Retrieve the information of a given synset
  * @param {string} id  - The ID of the synset
  * @param {array} filterLangs  - The languages in which the data are to be retrieved.
+ * @return {jqXHR} The jqXHR objects returned by the API call
  */
 BabelNet.prototype.getSynset = function(id, filterLangs){
 
@@ -100,6 +102,7 @@ BabelNet.prototype.getSynset = function(id, filterLangs){
  * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
  * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
  * @param {boolean} normalizer  - Enables normalized search
+ * @return {jqXHR} The jqXHR objects returned by the API call
  */
 BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=false){
     var params = {
@@ -133,6 +136,7 @@ BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', sou
  * @param {Langs} lang  - The language of the word
  * @param {array} filterLangs  - The languages in which the data are to be retrieved
  * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ * @return {jqXHR} The jqXHR objects returned by the API call
  */
 BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS=''){
     var params = {
@@ -159,6 +163,7 @@ BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filte
 /**
  * Retrieve edges of a given BabelNet synset
  * @param {string} id  - The ID of the synset
+ * @return {jqXHR} The jqXHR objects returned by the API call
  */
 BabelNet.prototype.getEdges = function(id){
     var params = {
@@ -182,6 +187,7 @@ Disambiguate a text
  * @param {ScoredCandidates} cands  - Wether you get a scored list of candidates or only the top ranked one
  * @param {PosTaggingOptions} posTag  -  Select the tokenization and pos-tagging pipeline for your input text
  * @param {boolean} extAIDA  - Extend the candidates sets with the aida_means relations
+ * @return {jqXHR} The jqXHR objects returned by the API call
 */
 BabelNet.prototype.disambiguate = function(text, lang, annType='', annRes='', th='', match='', mcs='', dens='', cands='', posTag='', extAIDA=''){
     var params = {

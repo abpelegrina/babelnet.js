@@ -231,8 +231,9 @@ BabelNetExample.prototype.showCompoundWordsForTerm = function(word, lang){
 }
 
 /**
- * this function counts the number of words in a string
+ * This function counts the number of words in a string
  * @param {string} str - the string
+ * @return {int} nomber of words in the string
  @private
  */
 function countWordsInString(str){
@@ -256,11 +257,12 @@ BabelNetExample.prototype.compareNumberofWords = function(a,b){
 
 
 /**
- * This functions highlights a text with span html elements according to set of matches
+ * This functions tags a text with span html elements according to the set of matches
  * @param {string} sentence - text to highlight
  * @param {array} m - array with all the matching texts
+ * @returns {string} the text tagged with the matched synsets 
  */
-BabelNetExample.prototype.highlightDisambiguation = function(sentence, m){
+BabelNetExample.prototype.tagDisambiguation = function(sentence, m){
 
     m.sort(this.compareNumberofWords);
 
@@ -311,7 +313,7 @@ BabelNetExample.prototype.showDisambiguation = function(text, lang){
             });
 
 
-            var highlightedSentence = example.highlightDisambiguation(text, matches);
+            var highlightedSentence = example.tagDisambiguation(text, matches);
             
             container.append(highlightedSentence);
 
