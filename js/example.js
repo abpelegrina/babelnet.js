@@ -13,12 +13,19 @@ function BabelNetExample(bb, ctnr){
     this.container = ctnr;
 }
 
-
 /** 
-Show an error message when an invalid language is provided 
+Shows an error message when an invalid language is provided 
 */
 BabelNetExample.prototype.showErrorLang = function(lang){
     $('<h2><strong>Error</strong>: "'+lang+'" is not a valid language</h2>').appendTo(this.container);
+}
+
+
+/** 
+Shows an error message when a HTTP request error happens  
+*/
+BabelNetExample.prototype.showErrorRequest = function(){
+    $('<h2><strong>HTTP request error</strong></h2>').appendTo(this.container);
 }
 
 /**
@@ -31,15 +38,17 @@ BabelNetExample.prototype.showGlossesForTerm = function(word, lang){
 
     var babel = this.babel;
     var container = this.container;
+    var example = this;
 
     if(lang in BabelNetParams.Langs){
 
         $('<h2>Synsets (concepts) denoted by the word: "'+word+'" in lang "' + lang + '"</h2>').appendTo(this.container);
 
-        this.babel.getSynsetIds(word,lang).done(function(response){
+        this.babel.getSynsetIds(word, [lang]).done(function(response){
             $.each(response, function(key, val) {
                
-                babel.getSynset(val['id'],lang).done(function(response){
+                babel.getSynset(val['id'],[lang])
+                .done(function(response){
 
                     $('<h3>', {html:val['id']}).appendTo(container);
 
@@ -63,9 +72,11 @@ BabelNetExample.prototype.showGlossesForTerm = function(word, lang){
     	                $('<div>', {html:entry}).appendTo(container);
     	                $('<hr>').appendTo(container);
                     }
-                });
+                })
+                .fail(example.showErrorRequest);
             });
-        });
+        }).
+        fail(this.showErrorRequest);
     }
     else 
         showErrorLang(lang);        
@@ -83,14 +94,16 @@ BabelNetExample.prototype.showTranslationsForTerm = function(word, from, to){
 
     var babel = this.babel;
     var container = this.container;
+    var example = this;
 
     if(from in BabelNetParams.Langs && to in BabelNetParams.Langs){
 
         $('<h2>Translations for: "'+word+'" in lang "' + to + '"</h2>').appendTo(this.container);
 
-        this.babel.getSynsetIds(word,from).done(function(response){
+        this.babel.getSynsetIds(word, [from])
+        .done(function(response){
             $.each(response, function(key, val) {
-            	babel.getSynset(val['id'],to).done(function(response){
+            	babel.getSynset(val['id'], [to]).done(function(response){
             		if (Object.keys(response['senses']).length > 0){
     	        		 $('<h3>', {html:val['id']}).appendTo(container);
     	                 var entry = '';
@@ -102,9 +115,11 @@ BabelNetExample.prototype.showTranslationsForTerm = function(word, from, to){
     	                 $('<hr>').appendTo(container);
                      }
             	});
-            });
+            })
+            .fail(example.showErrorRequest);
             
-        });
+        })
+        .fail(this.showErrorRequest);
     }
     else 
         showErrorLang(to+' or ' + from);
@@ -119,7 +134,8 @@ BabelNetExample.prototype.showEdgesForSynset = function(id){
     var babel = this.babel;
     var container = this.container;
 
-    this.babel.getEdges(id).done(function(response){
+    this.babel.getEdges(id)
+    .done(function(response){
         if (response.length > 0) {
             $('<h3>Edges for the synset: "'+ id +'"</h3>').appendTo(container);
             
@@ -138,7 +154,8 @@ BabelNetExample.prototype.showEdgesForSynset = function(id){
                 }
             });
         }
-    });
+    })
+    .fail(this.showErrorRequest);
 }
 
 /**
@@ -150,11 +167,14 @@ BabelNetExample.prototype.showEdgesForTerm = function(word, lang){
     this.container.html('');
     var example = this;
     if(lang in BabelNetParams.Langs){
-        this.babel.getSynsetIds(word,lang).done(function(response){
+
+        this.babel.getSynsetIds(word, [lang])
+        .done(function(response){
              $.each(response, function(key, val) {
                  example.showEdgesForSynset(val['id']);
              });
-        });
+        })
+        .fail(this.showErrorRequest);
     }
     else
        showErrorLang(lang);
@@ -170,7 +190,8 @@ BabelNetExample.prototype.showCompoudWordsForSynset = function(id, lang){
     var babel = this.babel;
     var container = this.container;
 
-    this.babel.getSynset(id,lang).done(function(response){
+    this.babel.getSynset(id, [lang])
+    .done(function(response){
         var entry = new Array();
         $.each(response['lnToCompound'], function(key,value){
             entry.push.apply(entry,value);
@@ -181,7 +202,8 @@ BabelNetExample.prototype.showCompoudWordsForSynset = function(id, lang){
             $('<em>',{html:entryStr}).appendTo(container);
             $('<br>').appendTo(container);
         }
-    });
+    })
+    .fail(this.showErrorRequest);
 }
 
 /**
@@ -195,11 +217,14 @@ BabelNetExample.prototype.showCompoundWordsForTerm = function(word, lang){
     var container = this.container;
     var example = this;
     if(lang in BabelNetParams.Langs){
-        babel.getSynsetIds(word,lang).done(function(response){
+        babel.getSynsetIds(word,[lang])
+        .done(function(response){
              $.each(response, function(key, val) {
                  example.showCompoudWordsForSynset(val['id'], lang);
-             });
-        });
+             })
+            .fail(example.showErrorRequest);
+        })
+        .fail(this.showErrorRequest);
     }
     else
         showErrorLang(lang);
@@ -266,7 +291,8 @@ BabelNetExample.prototype.showDisambiguation = function(text, lang){
 
     if(lang in BabelNetParams.Langs){
 
-        babel.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/).done(function(response) {
+        babel.disambiguate(text.toUpperCase(),lang/*, '','',0.5, '', MCS.ON_WITH_STOPWORDS/*, SemanticAnnotationType.ALL, SemanticAnnotationResource.BN, 0.0, MatchingType.EXACT_MATCHING*/)
+        .done(function(response) {
 
             var matches = [];
 
@@ -290,7 +316,8 @@ BabelNetExample.prototype.showDisambiguation = function(text, lang){
             container.append(highlightedSentence);
 
             $.each(matches, function(key, val) {
-                babel.getSynset(val.id,lang).done(function(response){
+                babel.getSynset(val.id, [lang])
+                .done(function(response){
                     var id = response['senses'][0]['synsetID']['id'];
 
                     var gloss = '';
@@ -306,9 +333,11 @@ BabelNetExample.prototype.showDisambiguation = function(text, lang){
                         var entry = val.synset + ': ' + gloss;
                         $('<p>',{html:entry}).appendTo(container);
                     }
-                });
+                })
+                .fail(example.showErrorRequest);
             });
-        });
+        })
+        .fail(this.showErrorRequest);
     }
     else 
         showErrorLang(lang); 

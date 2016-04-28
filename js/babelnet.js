@@ -31,16 +31,18 @@ BabelNet.prototype.getVersion = function(){
 /**
  * Retrieve the IDs of the Babel synsets (concepts) denoted by a given word
  * @param {string} word  - The word you want to search for
- * @param {Langs} lang  - The language of the word
+ * @param {array} langs  - The language(s) of the word
  * @param {array} filterLangs  - The languages in which the data are to be retrieved
  * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
  * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
  * @param {boolean} normalizer  - Enables normalized search
  */
-BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
+BabelNet.prototype.getSynsetIds = function (word, langs, filterLangs=[], POS='', source='', normalizer=false){
+    
+    var url = this.baseURL + this.getSynsetIdsURL + "?";
+
     var params = {
         'word': word,
-        'langs': lang,
         'key' : this.KEY
     };
 
@@ -50,9 +52,14 @@ BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', 
     if(POS in BabelNetParams.PartOfSpeech)
         params['POS'] = POS;
 
-    var url = this.baseURL + this.getSynsetIdsURL + "?";
+    langs.forEach(function(lang){
+        if (lang in BabelNetParams.Langs)
+            url += 'langs=' + lang + '&';
+    });
+
     filterLangs.slice(0,3).forEach(function(lang){
-        url += 'filterLangs=' + lang + '&';
+        if (lang in BabelNetParams.Langs)
+            url += 'filterLangs=' + lang + '&';
     });
 
     if(normalizer)
@@ -65,15 +72,23 @@ BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', 
 /**
  * Retrieve the information of a given synset
  * @param {string} id  - The ID of the synset
- * @param {Langs} lang  - The languages in which the data are to be retrieved.
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved.
  */
-BabelNet.prototype.getSynset = function(id,lang){
+BabelNet.prototype.getSynset = function(id, filterLangs){
+
+    var url = this.baseURL + this.getSynsetURL + "?";
+
     var params = {
         'id'  : id,
-        'key' : this.KEY,
-        'filterLangs' : lang
+        'key' : this.KEY
     };
-    return $.getJSON(this.baseURL + this.getSynsetURL + "?", params);
+
+    filterLangs.slice(0,3).forEach(function(lang){
+        if (lang in BabelNetParams.Langs)
+            url += 'filterLangs=' + lang + '&';
+    });
+
+    return $.getJSON(url, params);
 };
 
 
