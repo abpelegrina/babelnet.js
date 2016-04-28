@@ -1,2 +1,2 @@
 #
-jsdoc -d ../doc js/*.js
+jsdoc -d ./doc ./js/*.js
