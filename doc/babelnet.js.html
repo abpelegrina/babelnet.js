@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: babelnet.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: babelnet.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file This file contains the BabelNet class declaration and all his methods
+ */
+
+/**
+ * Class that wraps the BabelNet and Babelfy APIs
+ * @constructor
+ */
+function BabelNet(){
+	this.KEY = '';
+    this.baseURL = 'https://babelnet.io/v3/';
+    this.getSynsetURL = 'getSynset';
+    this.getSynsetIdsURL =  'getSynsetIds';
+    this.getVersionURL = 'getVersion';
+    this.getSensesURL = 'getSenses';
+    this.getEdgesURL = 'getEdges';
+    this.getVersionURL = 'getVersion';
+    this.babelfyURL = 'https://babelfy.io/v1/disambiguate';
+};
+
+/** Get the current version of the BabelNet API 
+*/
+BabelNet.prototype.getVersion = function(){
+    var params = {        
+        'key' : this.KEY
+    };
+    return $.getJSON(this.baseURL + this.getVersionURL + "?", params);
+};
+
+
+/**
+ * Retrieve the IDs of the Babel synsets (concepts) denoted by a given word
+ * @param {string} word  - The word you want to search for
+ * @param {Langs} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {boolean} normalizer  - Enables normalized search
+ */
+BabelNet.prototype.getSynsetIds = function (word, lang, filterLangs=[], POS='', source='', normalizer=true){
+    var params = {
+        'word': word,
+        'langs': lang,
+        'key' : this.KEY
+    };
+
+    if (source in BabelNetParams.Source)
+        params['source'] = source;
+
+    if(POS in BabelNetParams.PartOfSpeech)
+        params['POS'] = POS;
+
+    var url = this.baseURL + this.getSynsetIdsURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&amp;';
+    });
+
+    if(normalizer)
+        params['normalizer'] = true;
+
+    return $.getJSON(url, params);
+}
+
+
+/**
+ * Retrieve the information of a given synset
+ * @param {string} id  - The ID of the synset
+ * @param {Langs} lang  - The languages in which the data are to be retrieved.
+ */
+BabelNet.prototype.getSynset = function(id,lang){
+    var params = {
+        'id'  : id,
+        'key' : this.KEY,
+        'filterLangs' : lang
+    };
+    return $.getJSON(this.baseURL + this.getSynsetURL + "?", params);
+};
+
+
+/**
+ * Retrieve the senses of a given word
+ * @param {string} word  - The word you want to search for
+ * @param {Langs} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {boolean} normalizer  - Enables normalized search
+ */
+BabelNet.prototype.getSenses = function (word, lang, filterLangs=[], POS='', source='', normalizer=false){
+    var params = {
+        'word': word,
+        'lang': lang,
+        'key' : this.KEY
+    };
+
+    if (source in BabelNetParams.Source)
+        params['source'] = source;
+
+    if(POS in BabelNetParams.PartOfSpeech)
+        params['POS'] = POS;
+
+    var url = this.baseURL + this.getSensesURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&amp;';
+    });
+
+    if(normalizer)
+        params['normalizer'] = true;
+
+    return $.getJSON(url, params);
+}
+
+
+/**
+ * Retrieve a list of BabelNet IDs given a resource identifier
+ * @param {string} id  - The word you want to search for
+ * @param {Source} source  - Returns only the synsets containing these sources (WIKT, WIKIDATA, etc)
+ * @param {Langs} lang  - The language of the word
+ * @param {array} filterLangs  - The languages in which the data are to be retrieved
+ * @param {PartOfSpeech} POS  - Returns only the synsets containing this part of speech (NOUN, VERB, etc)
+ */
+BabelNet.prototype.getSynsetIdsFromResourceID = function(id, source, lang, filterLangs=[], POS=''){
+    var params = {
+        'id':id,
+        'key': this.KEY,
+        'source' : source
+    };
+
+    if (source == BabelNetParams.Source.WIKIQU || sBabelNetParams.ource==Source.WIKI){
+        if(POS in BabelNetParams.PartOfSpeech)
+            params['POS'] = POS;
+        params['lang'] = lang;
+    }
+
+    var url = this.baseURL + this.getSensesURL + "?";
+    filterLangs.slice(0,3).forEach(function(lang){
+        url += 'filterLangs=' + lang + '&amp;';
+    });
+
+    return $.getJSON(this.baseURL + this.getEdgesURL + "?", params);    
+}
+
+
+/**
+ * Retrieve edges of a given BabelNet synset
+ * @param {string} id  - The ID of the synset
+ */
+BabelNet.prototype.getEdges = function(id){
+    var params = {
+        'id':id,
+        'key': this.KEY
+    };
+
+    return $.getJSON(this.baseURL + this.getEdgesURL + "?", params);    
+}
+
+/**
+Disambiguate a text
+ * @param {string} text  - he text you want to disambiguate
+ * @param {Langs} lang  - The language of the text
+ * @param {SemanticAnnotationType} annType  - It allows to restrict the disambiguated entries to only named entities, word senses or both
+ * @param {SemanticAnnotationResource} annRes  - It allows to restrict the disambiguated entries to only WordNet, Wikipedia or BabelNet.
+ * @param {double} th  - the cutting threshold.
+ * @param {MatchingType} match  - Select the candidate extraction strategy
+ * @param {MCS} mcs  - enable or disable the most common sense backoff strategy
+ * @param {boolean} dens  -Enable or disable the densest subgraph heuristic during the disambiguation pipeline.
+ * @param {ScoredCandidates} cands  - Wether you get a scored list of candidates or only the top ranked one
+ * @param {PosTaggingOptions} posTag  -  Select the tokenization and pos-tagging pipeline for your input text
+ * @param {boolean} extAIDA  - Extend the candidates sets with the aida_means relations
+*/
+BabelNet.prototype.disambiguate = function(text, lang, annType='', annRes='', th='', match='', mcs='', dens='', cands='', posTag='', extAIDA=''){
+    var params = {
+        'text' : text,
+        'lang' : lang,
+        'key'  : this.KEY
+    };
+
+    if (annType in BabelNetParams.SemanticAnnotationType)
+        params['annType'] = annType;
+
+    if (annRes in BabelNetParams.SemanticAnnotationResource)
+        params['annRes'] = annRes;
+
+    if ($.isNumeric(th))
+        params['th'] = th;
+
+    if(match in BabelNetParams.MatchingType)
+        params['match'] = match;
+
+    if(mcs in BabelNetParams.MCS)
+        params['mcs'] = mcs;
+
+    if(typeof(dens) === "boolean")
+        params['dens']= dens;
+
+    if (cands in BabelNetParams.ScoredCandidates)
+        params['cands'] = cands;
+
+    if (posTag in BabelNetParams.PosTaggingOptions)
+        params['posTag'] = posTag;
+
+    if(typeof(extAIDA) === "boolean")
+        params['extAIDA']= extAIDA;    
+
+    return $.getJSON(this.babelfyURL + "?", params);
+}
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="BabelNet.html">BabelNet</a></li><li><a href="BabelNetExample.html">BabelNetExample</a></li><li><a href="BabelNetParams.html">BabelNetParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Wed Apr 27 2016 14:10:05 GMT+0200 (CEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
