@@ -7,7 +7,7 @@
  * @constructor
  */
 function BabelNet(){
-	this.KEY = '';
+    this.KEY = '';
     this.baseURL = 'https://babelnet.io/v3/';
     this.getSynsetURL = 'getSynset';
     this.getSynsetIdsURL =  'getSynsetIds';
@@ -38,7 +38,7 @@ BabelNet.prototype.getVersion = function(){
  * @param {boolean} normalizer  - Enables normalized search
  * @return {jqXHR} The jqXHR objects returned by the API call
  */
-BabelNet.prototype.getSynsetIds = function (word, langs, filterLangs=[], POS='', source='', normalizer=false){
+BabelNet.prototype.getSynsetIds = function (word, langs, filterLangs=[], POS='', source='', normalizer=true){
     
     var url = this.baseURL + this.getSynsetIdsURL + "?";
 
